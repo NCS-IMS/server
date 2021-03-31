@@ -1,0 +1,49 @@
+{
+  "name": "IMS_Server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start ecosystem.config.js",
+    "end": "pm2 kill",
+    "dev": "concurrently \"nodemon Main_Server/src/app.ts\" \"nodemon Emergency_Control_Server/src/app.ts\" ",
+    "build": "concurrently \" tsc -p ./Main_Server \"  \" tsc -p ./Emergency_Control_Server \" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Positive-Conative/Integrated_Medical_System_Server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Positive-Conative/Integrated_Medical_System_Server/issues"
+  },
+  "homepage": "https://github.com/Positive-Conative/Integrated_Medical_System_Server#readme",
+  "dependencies": {
+    "concurrently": "^6.0.0",
+    "nodemon": "^2.0.7",
+    "pm2": "^4.5.5",
+    "@types/compression": "^1.7.0",
+    "@types/multer": "^1.4.5",
+    "@types/winston": "^2.4.4",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "mysql": "^2.14.1",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.30",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.22",
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
