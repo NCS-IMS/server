@@ -1,12 +1,13 @@
 export interface userDto{
     // id?:number;
-    rrn:string;
+    kakaoId:string;
     name:string;
     gender:boolean;
     phone:string;
     address: string;
-    medicine?: string;
+    bloodType: string;
     imgSrc?: string;
-
-    door: object;
+    email?: string;
+    age?: number;
+    door?: object;
 }

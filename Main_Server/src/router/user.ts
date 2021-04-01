@@ -9,6 +9,8 @@ router.post(
     userController.createUser
 )
 
+router.get( '/searchAll', userController.findAllUser )
+
 // guestBookRouter.get('/main', guestBookMain)
 
 export default router;

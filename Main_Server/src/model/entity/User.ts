@@ -70,8 +70,7 @@ export class User{
     //  Door
     @ManyToOne(
         (type)=>Door,
-        (door)=>door.user,
-        {nullable: false}
+        (door)=>door.user
     )
     door: Door
 }

@@ -13,4 +13,7 @@ export class userRepo extends Repository<User> {
         //     .values(bodyData)
         //     .execute()
     }
+    findAllUser() {
+        return getRepository(User).find();
+    }
 }

@@ -5,7 +5,6 @@ import { logger } from "../../config/logger";
 //USER CREATE
 async function create_user(bodyData:userDto){
   const bgr = new userRepo;
-  console.log(bodyData)
   try{
     await bgr.insertUser(bodyData)
     return "성공적으로 추가되었습니다.";
@@ -16,8 +15,23 @@ async function create_user(bodyData:userDto){
     })
     return `Database Insert ERR.`;
   }
-  // console.log(timber.user.email)
 }
+
+//USER Find
+async function find_user(){
+  const bgr = new userRepo;
+  try{
+    return  await bgr.findAllUser()
+  }catch(err){
+    logger.error({
+      label:"[userService.ts - create_user]",
+      message: `\n\t└ err : ${err}`
+    })
+    return `Database Insert ERR.`;
+  }
+}
+
 export {
-  create_user
+  create_user,
+  find_user
 }
