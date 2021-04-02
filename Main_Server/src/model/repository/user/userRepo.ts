@@ -16,4 +16,21 @@ export class userRepo extends Repository<User> {
     findAllUser() {
         return getRepository(User).find();
     }
+    findOneUser(kakaoId : string) {
+        return getRepository(User).findOne({
+            where:{kakaoId : kakaoId}
+        });
+    }
+    updateUser(kakaoId : string) {
+        return getRepository(User)
+        .createQueryBuilder()
+        .update(User)
+        .set({ 
+            name: "Timber", 
+            gender: true,
+            age: () => "age + 1"
+        })
+        .where("id = :id", { id: 1 })
+        .execute();
+    }
 }

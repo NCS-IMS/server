@@ -35,7 +35,7 @@ createConnection()
 app.use("/user", userRouter);
 
 app.listen(process.env.MAIN_SERVER_PORT, ()=>{
-    console.log("SERVER RUN")
+    console.log("Main Server Start:",process.env.MAIN_SERVER_PORT)
 })
 
 //test

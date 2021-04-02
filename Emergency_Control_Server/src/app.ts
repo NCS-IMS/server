@@ -35,7 +35,7 @@ createConnection()
 app.use("/user", userRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{
-    console.log("SERVER RUN")
+  console.log("Emergency Server Start:",process.env.EMERGENCY_SERVER_PORT)
 })
 
 //test
