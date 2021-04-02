@@ -9,7 +9,8 @@ router.post(
     userController.createUser
 )
 
-router.get( '/searchAll', userController.findAllUser )
+router.get('/searchAll', userController.findAllUser)
+router.get('/detail', userController.findOneUser)
 
 // guestBookRouter.get('/main', guestBookMain)
 

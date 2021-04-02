@@ -23,12 +23,12 @@ var ORMCONFIG ={
    }
 }
 if(process.env.SERVICE_TYPE == 'DEVELOP'){
-   console.log("Test Server Start")
+   console.log("Test Server Start <Emergency Server>")
    ORMCONFIG.entities = [
       "Emergency_Control_Server/src/model/entity/**/*.ts",
    ]
 }else if(process.env.SERVICE_TYPE == 'MASTER'){
-   console.log("Real Server Start")
+   console.log("Real Server Start <Emergency Server>")
    ORMCONFIG.entities = [
       "Emergency_Control_Server/dist/model/entity/**/*.js"
    ]

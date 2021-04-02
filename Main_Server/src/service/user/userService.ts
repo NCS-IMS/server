@@ -17,21 +17,36 @@ async function create_user(bodyData:userDto){
   }
 }
 
-//USER Find
+//USER Find All
 async function find_user(){
   const bgr = new userRepo;
   try{
     return  await bgr.findAllUser()
   }catch(err){
     logger.error({
-      label:"[userService.ts - create_user]",
+      label:"[userService.ts - find_user]",
       message: `\n\t└ err : ${err}`
     })
-    return `Database Insert ERR.`;
+    return `Database Select ERR.`;
+  }
+}
+
+//USER Find Detail
+async function find_user_detail(kakaoId : string){
+  const bgr = new userRepo;
+  try{
+    return await bgr.findOneUser(kakaoId)
+  }catch(err){
+    logger.error({
+      label:"[userService.ts - find_user_detail]",
+      message: `\n\t└ err : ${err}`
+    })
+    return `Database Select ERR.`;
   }
 }
 
 export {
   create_user,
-  find_user
+  find_user,
+  find_user_detail
 }

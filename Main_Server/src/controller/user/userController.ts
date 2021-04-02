@@ -39,10 +39,8 @@ function createUser(req:Request, res:Response){
         )//end catch
 }
 
-//Find User
+//Find All User
 function findAllUser(req:Request, res:Response){
-    let files : any = req.files;
-    
     userService.find_user()
         .then(
             (result: any)=>{
@@ -60,7 +58,28 @@ function findAllUser(req:Request, res:Response){
         )//end catch
 }
 
+//Find One User
+function findOneUser(req:Request, res:Response){
+    let kakaoId: any = req.query.kakaoId;
+    userService.find_user_detail(kakaoId)
+        .then(
+            (result: any)=>{
+                res.json({"message":result})
+            }
+        )//end then
+        .catch(
+            (err: any)=>{
+                logger.error({
+                    label:"[userController.ts - findOneUser]",
+                    message: `\n\t└ err : ${err} `
+                })
+                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+            }
+        )//end catch
+}
+
 export{
     createUser,
-    findAllUser
+    findAllUser,
+    findOneUser
 }
