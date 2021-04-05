@@ -20,7 +20,7 @@ function createUser(req:Request, res:Response){
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}
     }
-    
+
     //Image Check
     if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
     userService.create_user(bodyData)
@@ -127,10 +127,31 @@ function updateUser(req:Request, res:Response){
             }
         )//end catch
 }
+//Find One User
+function deleteUserFlag(req:Request, res:Response){
+    let kakaoId: any = req.body.kakaoId;
+    let flag: any = req.body.flag;
 
+    userService.deleteUserFlag(kakaoId, flag)
+        .then(
+            (result: any)=>{
+                res.json({"message":result})
+            }
+        )//end then
+        .catch(
+            (err: any)=>{
+                logger.error({
+                    label:"[userController.ts - deleteUserFlag]",
+                    message: `\n\t└ err : ${err} `
+                })
+                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+            }
+        )//end catch
+}
 export{
     createUser,
     findAllUser,
     findOneUser,
-    updateUser
+    updateUser,
+    deleteUserFlag
 }

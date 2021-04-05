@@ -73,11 +73,36 @@ async function update_user(bodyData:userDto){
   }
 }
 
-
+//USER Delete - Flag 변경
+async function deleteUserFlag(kakaoId : string, flag : number){
+  const bgr = new userRepo;
+  try{
+    //유저 존재여부 파악
+     if(await bgr.findOneUser(kakaoId) != undefined){
+        //Flag 상태 변경
+        await bgr.updateUserFlag(kakaoId, flag)
+        switch(Number(flag)){
+          case 1:
+            return "성공적으로 삭제되었습니다";
+            
+          case 2:
+            return "휴면처리가 완료되었습니다";
+        }
+     } 
+     else return "삭제할 유저가 존재하지 않습니다.";
+  }catch(err){
+    logger.error({
+      label:"[userService.ts - update_user]",
+      message: `\n\t└ err : ${err}`
+    })
+    return `Database Update ERR.`;
+  }
+}
 
 export {
   create_user,
   find_user,
   find_user_detail,
-  update_user
+  update_user,
+  deleteUserFlag
 }

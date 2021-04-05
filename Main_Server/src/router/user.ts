@@ -17,6 +17,7 @@ router.post(
     upload.fields([{name:'imgSrc', maxCount:1}]),
     userController.updateUser
 )
+router.post('/delete', userController.deleteUserFlag)
 
 // guestBookRouter.get('/main', guestBookMain)
 
