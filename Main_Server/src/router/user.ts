@@ -12,6 +12,13 @@ router.post(
 router.get('/searchAll', userController.findAllUser)
 router.get('/detail', userController.findOneUser)
 
+router.post(
+    '/update',
+    upload.fields([{name:'imgSrc', maxCount:1}]),
+    userController.updateUser
+)
+router.post('/delete', userController.deleteUserFlag)
+
 // guestBookRouter.get('/main', guestBookMain)
 
 export default router;

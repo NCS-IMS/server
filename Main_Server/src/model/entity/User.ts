@@ -60,6 +60,14 @@ export class User{
     })
     imgSrc?: string;
 
+    @Column({
+        type:"tinyint",
+        default: 0,
+        comment: '상태 (0:정상 / 1:회원탈퇴)'
+    })
+    
+    flag?: number;
+
     @CreateDateColumn()
     createTime: Date;
 
