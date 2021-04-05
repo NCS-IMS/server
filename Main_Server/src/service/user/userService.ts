@@ -6,6 +6,7 @@ import { logger } from "../../config/logger";
 async function create_user(bodyData:userDto){
   const bgr = new userRepo;
   try{
+    if(await bgr.findOneUser(bodyData.kakaoId) != undefined) return "회원가입된 ID가 이미 존재합니다"
     await bgr.insertUser(bodyData)
     return "성공적으로 추가되었습니다.";
   }catch(err){
@@ -36,7 +37,7 @@ async function find_user_detail(kakaoId : string){
   const bgr = new userRepo;
   try{
     let searchFlag = await bgr.findUserFlag(kakaoId)
-    
+
     //존재하지 않는 경우, 회원 자체가 없는 경우
     if(searchFlag[0] == undefined) return "해당하는 유저가 존재하지 않습니다."
 
@@ -57,8 +58,9 @@ async function find_user_detail(kakaoId : string){
 async function update_user(bodyData:userDto){
   const bgr = new userRepo;
   try{
+    //유저 존재여부 파악
      if(await bgr.findOneUser(bodyData.kakaoId) != undefined){
-        await bgr.insertUser(bodyData)
+        await bgr.updateUser(bodyData)
         return bodyData.name;
      } 
      return 0;
@@ -70,6 +72,9 @@ async function update_user(bodyData:userDto){
     return `Database Update ERR.`;
   }
 }
+
+
+
 export {
   create_user,
   find_user,

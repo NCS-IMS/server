@@ -20,6 +20,7 @@ function createUser(req:Request, res:Response){
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}
     }
+    
     //Image Check
     if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
     userService.create_user(bodyData)
