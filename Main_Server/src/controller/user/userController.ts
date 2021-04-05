@@ -78,8 +78,58 @@ function findOneUser(req:Request, res:Response){
         )//end catch
 }
 
+//Update User
+function updateUser(req:Request, res:Response){
+    let files : any = req.files;
+    
+    let bodyData : userDto ={
+        "kakaoId": req.body.kakaoId,
+        "name": req.body.name,
+        "gender": req.body.gender,
+        "phone": req.body.phone,
+        "address": req.body.address,
+        "bloodType": req.body.bloodType,
+        "email": req.body.email,
+        "age": req.body.age,
+        // "door": {"id": req.body.doorId}
+        // "user": {"email": req.body.userEmail},
+        // "board_groups": {"group_id": req.body.group_id}
+    }
+
+    //Image Check
+    if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
+    else bodyData.imgSrc= ''
+    userService.update_user(bodyData)
+        .then(
+            (result: any)=>{
+                var returnString: string = '';
+                if(result){
+                    returnString = "성공적으로 수정되었습니다."
+                    res.json({
+                        "message":returnString,
+                        "name":result
+                    })
+                }else{
+                    returnString= "수정할 데이터가 존재하지 않습니다."
+                    res.json({"message":returnString})
+                }
+                // res.json({"message":returnString})
+            }
+        )//end then
+        .catch(
+            (err: any)=>{
+                logger.error({
+                    label:"[userController.ts - create_user]",
+                    message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
+                })
+                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+            }
+        )//end catch
+}
+
 export{
     createUser,
     findAllUser,
-    findOneUser
+    findOneUser,
+    updateUser
 }

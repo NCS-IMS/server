@@ -13,24 +13,34 @@ export class userRepo extends Repository<User> {
         //     .values(bodyData)
         //     .execute()
     }
-    findAllUser() {
-        return getRepository(User).find();
+    findUserFlag(kakaoId : string) {
+        return getRepository(User)
+        .createQueryBuilder()
+        .select("flag")
+        .where("kakaoId = :kakaoId", { kakaoId: kakaoId })
+        .execute();
     }
+
+    findAllUser() {
+        // return getRepository(User).find();
+        return getRepository(User)
+        .createQueryBuilder()
+        .where("flag = 0")
+        .execute();
+    }
+
     findOneUser(kakaoId : string) {
         return getRepository(User).findOne({
             where:{kakaoId : kakaoId}
         });
     }
-    updateUser(kakaoId : string) {
+
+    updateUser(bodyData:userDto) {
         return getRepository(User)
         .createQueryBuilder()
         .update(User)
-        .set({ 
-            name: "Timber", 
-            gender: true,
-            age: () => "age + 1"
-        })
-        .where("id = :id", { id: 1 })
+        .set(bodyData)
+        .where("kakaoId = :kakaoId", { kakaoId: bodyData.kakaoId })
         .execute();
     }
 }
