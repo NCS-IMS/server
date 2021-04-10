@@ -14,7 +14,7 @@ export class Door_Log{
     door_useable: boolean;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     //  FK AREA
     //  Door

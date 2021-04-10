@@ -42,10 +42,10 @@ export class Emergency_Room{
     longitude: number;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     @UpdateDateColumn()
-    updateTime: Date;
+    updateDate: Date;
 
     //  for control_tower
     @OneToMany(

@@ -47,10 +47,10 @@ export class Control_Tower{
     hospitalHistory: string;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     @UpdateDateColumn()
-    updateTime: Date;
+    updateDate: Date;
 
     //  FK AREA
     //  to Fire_station

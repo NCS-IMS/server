@@ -21,10 +21,10 @@ export class Door{
     mac_addr: string;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     @UpdateDateColumn()
-    updateTime: Date;
+    updateDate: Date;
 
     //  FK AREA
     //  LOG
