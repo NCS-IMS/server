@@ -1,5 +1,6 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany} from "typeorm";
 import { Fire_Station } from "./Fire_Station";
+
 @Entity("EM_Schedule")
 export class EM_Schedule{
 
@@ -45,10 +46,10 @@ export class EM_Schedule{
     endDate: Date;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     @UpdateDateColumn()
-    updateTime: Date;
+    updateDate: Date;
 
     //  FK AREA
     //  to Fire_station

@@ -43,10 +43,10 @@ export class Fire_Station{
     longitude: number;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     @UpdateDateColumn()
-    updateTime: Date;
+    updateDate: Date;
 
     //  FK AREA
     //  for em_schedule

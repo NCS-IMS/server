@@ -69,10 +69,10 @@ export class User{
     flag?: number;
 
     @CreateDateColumn()
-    createTime: Date;
+    createDate: Date;
 
     @UpdateDateColumn()
-    updateTime: Date;
+    updateDate: Date;
 
     //  FK AREA
     //  Door
