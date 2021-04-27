@@ -5,7 +5,7 @@ import { Door } from "./Door";
 export class User{
     @Column({
         primary : true,
-        length: 14,
+        length: 20,
         comment: '카카오 회원 ID'
     })
     kakaoId: string;
@@ -29,7 +29,7 @@ export class User{
     phone: string;
 
     @Column({
-        length: 1,
+        length: 3,
         comment: '혈액형'
     })
     bloodType: string;

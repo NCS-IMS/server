@@ -5,7 +5,7 @@ import { userDto } from "../../interface/userDto";
 
 //Create User
 function createUser(req:Request, res:Response){
-    let files : any = req.files;
+    // let files : any = req.files;
     
     let bodyData : userDto ={
         "kakaoId": req.body.kakaoId,
@@ -16,13 +16,14 @@ function createUser(req:Request, res:Response){
         "bloodType": req.body.bloodType,
         "email": req.body.email,
         "age": req.body.age,
-        // "door": {"id": req.body.doorId}
+        "flag": 0,
+        "door": {"id": req.body.doorId}
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}
     }
-
     //Image Check
-    if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
+    // if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
+    if(req.body.imgSrc != undefined) bodyData.imgSrc = req.body.imgSrc
     userService.create_user(bodyData)
         .then(
             (result: any)=>{
@@ -81,7 +82,7 @@ function findOneUser(req:Request, res:Response){
 
 //Update User
 function updateUser(req:Request, res:Response){
-    let files : any = req.files;
+    // let files : any = req.files;
     
     let bodyData : userDto ={
         "kakaoId": req.body.kakaoId,
@@ -98,8 +99,8 @@ function updateUser(req:Request, res:Response){
     }
 
     //Image Check
-    if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
-    else bodyData.imgSrc= ''
+    // if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
+    // else bodyData.imgSrc= ''
     userService.update_user(bodyData)
         .then(
             (result: any)=>{

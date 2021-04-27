@@ -3,11 +3,15 @@ import express from 'express'
 const router = express.Router();
 
 var upload = require('../middleware/multer');
-router.post(
-    '/create',
-    upload.fields([{name:'imgSrc', maxCount:1}]),
-    userController.createUser
-)
+
+//User 추가
+router.post('/create',userController.createUser)
+
+// router.post(
+//     '/create',
+//     upload.fields([{name:'imgSrc', maxCount:1}]),
+//     userController.createUser
+//)
 
 router.get('/searchAll', userController.findAllUser)
 router.get('/detail', userController.findOneUser)
