@@ -6,7 +6,8 @@ export interface userDto{
     phone:string;
     address: string;
     bloodType: string;
-    imgSrc?: string;
+    imgSrc?:string;
+    flag?:number;
     email?: string;
     age?: number;
     door?: object;

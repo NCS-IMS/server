@@ -32,7 +32,14 @@ export class Admin{
         length: 256
     })
     token: string;
-    
+
+    @Column({
+        length: 256,
+        nullable: true,
+        comment: '사진 경로'
+    })
+    imgSrc?: string;
+
     @CreateDateColumn()
     createDate: Date;
 
