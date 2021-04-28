@@ -2,7 +2,7 @@ export interface userDto{
     // id?:number;
     kakaoId:string;
     name:string;
-    gender:boolean;
+    gender?:boolean;
     phone:string;
     address: string;
     bloodType: string;
