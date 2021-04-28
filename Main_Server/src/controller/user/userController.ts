@@ -90,7 +90,6 @@ function updateUser(req:Request, res:Response){
         "phone": req.body.phone,
         "address": req.body.address,
         "bloodType": req.body.bloodType,
-        "age": req.body.age,
         // "door": {"id": req.body.doorId}
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}

@@ -1,6 +1,6 @@
 import express from 'express'
 import * as bodyParser from 'body-parser';
-// import emergencyCallRouter from "./router/emergency";
+import emergencyCallRouter from "./router/emergency";
 import userRouter from "./router/user";
 import { createConnection } from 'typeorm';
 
@@ -31,7 +31,7 @@ createConnection()
 // URL : /board/images/sky-690293_1920.jpg
 // app.use("/board", boardRouter, express.static('src/public/upload'));
 
-// app.use("/emergency", emergencyCallRouter);
+app.use("/emergency", emergencyCallRouter);
 app.use("/user", userRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{

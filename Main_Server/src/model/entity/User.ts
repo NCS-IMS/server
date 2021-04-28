@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, ManyToOne} from "typeorm";
 import { Door } from "./Door";
 
 @Entity("User")
