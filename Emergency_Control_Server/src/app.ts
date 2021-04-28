@@ -20,7 +20,6 @@ createConnection()
       status?: number;
       message?: string;
     }
-
 }).catch(err=>console.log(err))
 
 
@@ -32,7 +31,7 @@ createConnection()
 // app.use("/board", boardRouter, express.static('src/public/upload'));
 
 app.use("/emergency", emergencyCallRouter);
-app.use("/user", userRouter);
+// app.use("/user", userRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{
   console.log("Emergency Server Start:",process.env.EMERGENCY_SERVER_PORT)

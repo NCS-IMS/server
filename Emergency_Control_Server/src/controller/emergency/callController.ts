@@ -5,19 +5,17 @@ import { callLogDto } from "../../interface/callLogDto";
 
 function callMain(req:Request, res:Response){
     let bodyData : callLogDto ={
-        "id": req.body.title,
         "kakaoId": req.body.kakaoId,
         "state": req.body.state,
         "is_self": req.body.is_self,
         "latitude": req.body.latitude,
         "longitude": req.body.longitude,
     }
-
     callService.write_log(bodyData)
         .then(
-            (result: unknown)=>{
-                res.json({"message":result})
-                
+            (result: number)=>{
+                if(result) res.status(200).json({"message":"성공적으로 추가되었습니다."})
+                else res.status(500).json({"message":"Database Insert ERR."})
             }
         )//end then
         .catch(

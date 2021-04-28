@@ -3,7 +3,7 @@ import { callLogDto } from "../../../interface/callLogDto";
 import { Call_Log } from "../../entity/Call_Log";
 
 @EntityRepository(Call_Log)
-export class CallLogRepo extends Repository<Call_Log> {
+export class callLogRepo extends Repository<Call_Log> {
     insertLog(bodyData:callLogDto) {
         return getRepository(Call_Log).save(bodyData)
         // return getRepository(Board_Contents)

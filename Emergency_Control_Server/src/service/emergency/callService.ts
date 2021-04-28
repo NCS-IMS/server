@@ -1,13 +1,13 @@
-import { CallLogRepo } from "../../model/repository/emergency/CallLogRepo";
+import { callLogRepo } from "../../model/repository/emergency/callLogRepo";
 import { callLogDto } from "../../interface/callLogDto";
 import { logger } from "../../config/logger";
 
 //USER CREATE
 async function write_log(bodyData:callLogDto){
-  const bgr = new CallLogRepo;
+  const bgr = new callLogRepo;
   try{
     await bgr.insertLog(bodyData)
-    return bodyData; //로그 저장 성공
+    return 1; //로그 저장 성공
   }catch(err){
     logger.error({
       label:"[callService.ts - write_log]",
