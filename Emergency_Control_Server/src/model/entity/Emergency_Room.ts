@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany} from "typeorm";
 
 import { Control_Tower } from "./Control_Tower";
 @Entity("Emergency_Room")
@@ -31,13 +31,13 @@ export class Emergency_Room{
 
     @Column({
         type:"double",
-        comment: '위도'
+        comment: '응급실 위도'
     })
     latitude: number;
 
     @Column({
         type:"double",
-        comment: '경도'
+        comment: '응급실 경도'
     })
     longitude: number;
 

@@ -87,12 +87,9 @@ function updateUser(req:Request, res:Response){
     let bodyData : userDto ={
         "kakaoId": req.body.kakaoId,
         "name": req.body.name,
-        "gender": req.body.gender,
         "phone": req.body.phone,
         "address": req.body.address,
         "bloodType": req.body.bloodType,
-        "email": req.body.email,
-        "age": req.body.age,
         // "door": {"id": req.body.doorId}
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}
@@ -105,15 +102,16 @@ function updateUser(req:Request, res:Response){
         .then(
             (result: any)=>{
                 var returnString: string = '';
-                if(result){
+                
+                if(!result){
+                    returnString= "Database Update ERR."
+                    res.json({"message":returnString})
+                }else{
                     returnString = "성공적으로 수정되었습니다."
                     res.json({
                         "message":returnString,
-                        "name":result
+                        "name":result   //APP단 TEST용도로 추가함.
                     })
-                }else{
-                    returnString= "수정할 데이터가 존재하지 않습니다."
-                    res.json({"message":returnString})
                 }
                 // res.json({"message":returnString})
             }
