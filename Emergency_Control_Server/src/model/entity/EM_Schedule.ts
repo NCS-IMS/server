@@ -22,16 +22,23 @@ export class EM_Schedule{
     @Column({
         type:"longtext",
         default: '{"mac": []}',
-        comment: '응급구조사들의 MAC 주소'
+        comment: '응급구조사들의 ID값'
     })
-    mac_addr: string;
+    mans: string;
 
-    @Column({
-        type:"longtext",
-        default: '{"emt": []}',
-        comment: 'Emergency Medical Technician : 응급 의료 기술자'
-    })
-    emt: string;
+    // @Column({
+    //     type:"longtext",
+    //     default: '{"mac": []}',
+    //     comment: '응급구조사들의 MAC 주소'
+    // })
+    // mac_addr: string;
+
+    // @Column({
+    //     type:"longtext",
+    //     default: '{"emt": []}',
+    //     comment: 'Emergency Medical Technician : 응급 의료 기술자'
+    // })
+    // emt: string;
 
     @Column({
         length: 100,
