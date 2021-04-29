@@ -26,10 +26,6 @@ router.patch('/update',userController.updateUser)
 router.delete('/delete', userController.deleteUserFlag)
 
 
-
-router.post('/test', userController.test)
-
-
 // guestBookRouter.get('/main', guestBookMain)
 
 export default router;

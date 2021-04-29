@@ -10,14 +10,17 @@ admin.initializeApp({
   databaseURL: "gs://ncs-ims.appspot.com/"
 });
 
-//Send PushMessage
+//그룹 단위
 function sendPushMessageGroup(req: Request, res: Response) {
   let bodyData: pushMessageDto = {
     "title": req.body.title,
     "body": req.body.body,
     "topic": req.body.topic
   }
-  //topic 없을때 에러처리 해야함
+
+  //topic 없는 경우 
+  if(req.body.topic == undefined){res.json({"message" : "Topic을 넣어주세요."});}
+
   const messages = [];
   let options: pushMessageOptions = {
     notification: { title: bodyData.title, body: bodyData.body },
@@ -38,24 +41,29 @@ function sendPushMessageGroup(req: Request, res: Response) {
     },
   }
   messages.push(options);
-  admin.messaging().sendAll(messages)
-    .then((response: any) => {
-      console.log(response.successCount + ' messages were sent successfully');
-      res.send("oo")
-    });
+  admin.messaging()
+  .sendAll(messages)
+  .then((response: any) => {
+    console.log(response.successCount + ' messages were sent successfully');
+    res.json({"message":"Push Message 전송 성공!"})
+  });
 }
 
+//개인 단위
 function sendPushMessageIndividual(req: Request, res: Response) {
   let bodyData: pushMessageDto = {
     "title": req.body.title,
     "body": req.body.body,
   }
+  //Token 없는 경우 
+  if(req.body.token == undefined) res.json({"message" : "Token을 넣어주세요."});
   let fcm_tokens = req.body.token
-  if(fcm_tokens == undefined){res.json({"message" : "Token이 존재하지 않습니다."});}
+
   var notification_body = {
     'notification': bodyData,
     'registration_ids': fcm_tokens
   }
+
   const fetch = require('node-fetch');
   fetch('https://fcm.googleapis.com/fcm/send', {
     'method': 'POST',
@@ -64,10 +72,11 @@ function sendPushMessageIndividual(req: Request, res: Response) {
       'Authorization': 'key=' + process.env.FIREBASE_SERVER_KEY,
       'Content-Type': 'application/json'
     },
-    'body': JSON.stringify(notification_body)
-  }).then(function (response: any) {
+    'body': JSON.stringify(notification_body)})
+  .then(function (response: any) {
     res.json(response);
-  }).catch(function (error: any) {
+  })
+  .catch(function (error: any) {
     console.error(error);
   })
 }
