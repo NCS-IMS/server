@@ -8,12 +8,6 @@ export class EM_Schedule{
     id: number;
 
     @Column({
-        length: 50,
-        comment: '이름'
-    })
-    name: string;
-
-    @Column({
         length: 8,
         comment: '구급차의 차 번호'
     })
@@ -39,13 +33,6 @@ export class EM_Schedule{
     //     comment: 'Emergency Medical Technician : 응급 의료 기술자'
     // })
     // emt: string;
-
-    @Column({
-        length: 100,
-        comment: '주소'
-    })
-    address: string;
-
     @Column({
         comment: '시작 일시 & 시간'
     })
