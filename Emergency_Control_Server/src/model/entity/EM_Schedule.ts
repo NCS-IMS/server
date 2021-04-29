@@ -46,10 +46,14 @@ export class EM_Schedule{
     })
     address: string;
 
-    @Column()
+    @Column({
+        comment: '시작 일시 & 시간'
+    })
     startDate: Date;
 
-    @Column()
+    @Column({
+        comment: '끝 일시 & 시간'
+    })
     endDate: Date;
 
     @CreateDateColumn()

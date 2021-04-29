@@ -30,7 +30,7 @@ export class Emergency_Man{
     mac: string;
 
     @Column({
-        length: 16,
+        length: 256,
         comment: '푸시메시지 토큰 값'
     })
     token: string;
