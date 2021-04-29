@@ -1,7 +1,7 @@
 import express from 'express'
 import * as bodyParser from 'body-parser';
 import emergencyCallRouter from "./router/emergency";
-import userRouter from "./router/user";
+import proxyBackRouter from "./router/proxyBack";
 import { createConnection } from 'typeorm';
 
 const app = express()
@@ -31,6 +31,7 @@ createConnection()
 // app.use("/board", boardRouter, express.static('src/public/upload'));
 
 app.use("/emergency", emergencyCallRouter);
+app.use("/proxy", proxyBackRouter);
 // app.use("/user", userRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{
