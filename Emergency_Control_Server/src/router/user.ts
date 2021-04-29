@@ -1,13 +1,8 @@
-import * as userController from '../controller/user/userController';
+import * as callController from '../controller/emergency/callController';
 import express from 'express'
 const router = express.Router();
 
-var upload = require('../middleware/multer');
-router.post(
-    '/create',
-    upload.fields([{name:'img_src', maxCount:1}]),
-    userController.createUser
-)
+router.post('/', callController.callMain)
 
 // guestBookRouter.get('/main', guestBookMain)
 

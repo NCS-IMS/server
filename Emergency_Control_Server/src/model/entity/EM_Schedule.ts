@@ -8,12 +8,6 @@ export class EM_Schedule{
     id: number;
 
     @Column({
-        length: 50,
-        comment: '이름'
-    })
-    name: string;
-
-    @Column({
         length: 8,
         comment: '구급차의 차 번호'
     })
@@ -22,27 +16,31 @@ export class EM_Schedule{
     @Column({
         type:"longtext",
         default: '{"mac": []}',
-        comment: '응급구조사들의 MAC 주소'
+        comment: '응급구조사들의 ID값'
     })
-    mac_addr: string;
+    mans: string;
 
+    // @Column({
+    //     type:"longtext",
+    //     default: '{"mac": []}',
+    //     comment: '응급구조사들의 MAC 주소'
+    // })
+    // mac_addr: string;
+
+    // @Column({
+    //     type:"longtext",
+    //     default: '{"emt": []}',
+    //     comment: 'Emergency Medical Technician : 응급 의료 기술자'
+    // })
+    // emt: string;
     @Column({
-        type:"longtext",
-        default: '{"emt": []}',
-        comment: 'Emergency Medical Technician : 응급 의료 기술자'
+        comment: '시작 일시 & 시간'
     })
-    emt: string;
-
-    @Column({
-        length: 100,
-        comment: '주소'
-    })
-    address: string;
-
-    @Column()
     startDate: Date;
 
-    @Column()
+    @Column({
+        comment: '끝 일시 & 시간'
+    })
     endDate: Date;
 
     @CreateDateColumn()

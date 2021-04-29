@@ -1,6 +1,7 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ManyToOne, OneToMany} from "typeorm";
 import { EM_Schedule } from "./EM_Schedule";
 import { Control_Tower } from "./Control_Tower";
+import { Emergency_Man } from "./Emergency_Man";
 
 @Entity("Fire_Station")
 export class Fire_Station{
@@ -63,4 +64,10 @@ export class Fire_Station{
     )
     control_tower:Control_Tower[];
 
+    //  for Emergency MAN
+    @OneToMany(
+        (type)=>Emergency_Man,
+        (emergency_man)=>emergency_man.fire_station
+    )
+    emergency_man:Emergency_Man[];
 }

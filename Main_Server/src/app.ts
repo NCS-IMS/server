@@ -2,6 +2,7 @@ import express from 'express'
 import * as bodyParser from 'body-parser';
 // import emergencyCallRouter from "./router/emergency";
 import userRouter from "./router/user";
+import proxyFrontRouter from "./router/proxyFront";
 import { createConnection } from 'typeorm';
 
 const app = express()
@@ -33,6 +34,7 @@ createConnection()
 
 // app.use("/emergency", emergencyCallRouter);
 app.use("/user", userRouter);
+app.use("/proxy", proxyFrontRouter);
 
 app.listen(process.env.MAIN_SERVER_PORT, ()=>{
     console.log("Main Server Start:",process.env.MAIN_SERVER_PORT)

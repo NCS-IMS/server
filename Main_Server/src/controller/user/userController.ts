@@ -152,5 +152,5 @@ export{
     findAllUser,
     findOneUser,
     updateUser,
-    deleteUserFlag
+    deleteUserFlag,
 }

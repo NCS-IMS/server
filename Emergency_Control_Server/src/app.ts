@@ -1,7 +1,6 @@
 import express from 'express'
 import * as bodyParser from 'body-parser';
 import emergencyCallRouter from "./router/emergency";
-import userRouter from "./router/user";
 import { createConnection } from 'typeorm';
 
 const app = express()

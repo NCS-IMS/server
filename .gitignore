@@ -2,6 +2,7 @@
 log
 node_modules
 .env
+ncs-ims-firebase-adminsdk-f2ws7-080cafd303.json
 
 # Emergency Control Server
 Emergency_Control_Server/dist/
