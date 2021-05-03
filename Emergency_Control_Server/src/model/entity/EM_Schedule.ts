@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typeorm";
 import { Fire_Station } from "./Fire_Station";
 
 @Entity("EM_Schedule")
@@ -14,11 +14,11 @@ export class EM_Schedule{
     car_num: string;
 
     @Column({
-        type:"longtext",
-        default: '{"mac": []}',
-        comment: '응급구조사들의 ID값'
+        length: 50,
+        comment: '메모'
     })
-    mans: string;
+    notice: string;
+    
 
     // @Column({
     //     type:"longtext",
@@ -57,4 +57,10 @@ export class EM_Schedule{
         {nullable: false}
     )
     fire_station: Fire_Station
+
+    // @OneToMany(
+    //     (type)=>Schedule_Man,
+    //     (schedule_man)=>schedule_man.em_schedule
+    // )
+    // schedule_man:Schedule_Man[];
 }
