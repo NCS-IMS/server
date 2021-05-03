@@ -1,8 +1,9 @@
 import express from 'express'
 import * as bodyParser from 'body-parser';
-import emergencyCallRouter from "./router/emergency";
 import { createConnection } from 'typeorm';
 
+import emergencyCallRouter from "./router/emergency";
+import scheduleRouter from "./router/schedule";
 const app = express()
 
 app.use(bodyParser.json());
@@ -30,7 +31,7 @@ createConnection()
 // app.use("/board", boardRouter, express.static('src/public/upload'));
 
 app.use("/emergency", emergencyCallRouter);
-// app.use("/user", userRouter);
+app.use("/schedule", scheduleRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{
   console.log("Emergency Server Start:",process.env.EMERGENCY_SERVER_PORT)

@@ -1,6 +1,7 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable} from "typeorm";
 import { EM_Schedule } from "./EM_Schedule";
 import { Fire_Station } from "./Fire_Station";
+
 @Entity("Emergency_Man")
 export class Emergency_Man{
 
@@ -51,7 +52,7 @@ export class Emergency_Man{
 
     @ManyToMany(()=>EM_Schedule)
     @JoinTable()
-    em_schedules:EM_Schedule[]
+    em_schedule:EM_Schedule[]
     // @OneToMany(
     //     (type)=>Schedule_Man,
     //     (schedule_man)=>schedule_man.em_schedule
