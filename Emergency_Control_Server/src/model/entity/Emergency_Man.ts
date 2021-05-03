@@ -1,6 +1,7 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
-
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, ManyToMany, JoinTable} from "typeorm";
+import { EM_Schedule } from "./EM_Schedule";
 import { Fire_Station } from "./Fire_Station";
+
 @Entity("Emergency_Man")
 export class Emergency_Man{
 
@@ -48,4 +49,13 @@ export class Emergency_Man{
         {nullable: false}
     )
     fire_station: Fire_Station
+
+    @ManyToMany(()=>EM_Schedule)
+    @JoinTable()
+    em_schedule:EM_Schedule[]
+    // @OneToMany(
+    //     (type)=>Schedule_Man,
+    //     (schedule_man)=>schedule_man.em_schedule
+    // )
+    // schedule_man:Schedule_Man[];
 }
