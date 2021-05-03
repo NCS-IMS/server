@@ -1,37 +1,64 @@
 import { Request, Response, NextFunction } from 'express'
 import * as manageScheduleService from "../../service/firestation/manageScheduleService";
 import { sendPushMessageGroup, sendPushMessageIndividual } from "../../middleware/sendPushMessage";
+import { manageScheduleDto } from "../../interface/manageScheduleDto";
 import { logger } from "../../config/logger";
 import { callLogDto } from "../../interface/callLogDto";
 
-function addSchedule(req: Request, res: Response) {
-    manageScheduleService.add_schedule()
+async function addSchedule(req: Request, res: Response) {
+    // manageScheduleService.select_schedule()
+    let bodyData: manageScheduleDto = {
+        "kakaoId": req.body.kakaoId,
+        "scheduleId": req.body.scheduleId
+    }
+    try{
+        await manageScheduleService.add_schedule(bodyData)
         .then(
-            (result: any) => {
-                var returnString: string = '';
+            ()=>res.json({ "message": "성공적으로 생성되었습니다." })
+        )
+    }catch(errMsg){
+        res.json({ "message": errMsg })
+    }
+    // manageScheduleService.add_schedule(bodyData)
+    //     .then(
+    //         (result: any) => {
+    //             let returnString: string = '';
+    //             switch(result){
+    //                 case 1: //참
+    //                     returnString = "성공적으로 생성되었습니다."
+    //                     break;
+    //                 case 0: //DB ERR
+    //                     returnString = "Database Create ERR."
+    //                     break;
+    //                 case -1: //No Emergency Man
+    //                     returnString = "해당하는 응급구조사가 존재하지 않습니다."
+    //                     break;
+    //                 case -2: //No Schedule
+    //                     returnString = "해당하는 스케쥴이 존재하지 않습니다."
+    //                     break;
+    //                 case -3: //No Schedule
+    //                     returnString = "해당 데이터는 이미 존재합니다."
+    //                     break;
+    //             }
+    //             res.json({ "message": returnString })
+    //             // res.json({"message":returnString})
+    //         }
+    //     )//end then
+    //     .catch(
+    //         (err: any) => {
+    //             logger.error({
+    //                 label: "[userController.ts - create_user]",
+    //                 // message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
+    //             })
+    //             res.json({ "message": "알 수 없는 오류가 발생하였습니다!" })
+    //         }
+    //     )//end catch
 
-                if (!result) {
-                    returnString = "Database Create ERR."
-                    res.json({ "message": returnString })
-                } else {
-                    returnString = "성공적으로 생성되었습니다."
-                    res.json({
-                        "message": returnString,
-                        "name": result   //APP단 TEST용도로 추가함.
-                    })
-                }
-                // res.json({"message":returnString})
-            }
-        )//end then
-        .catch(
-            (err: any) => {
-                logger.error({
-                    label: "[userController.ts - create_user]",
-                    // message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
-                })
-                res.json({ "message": "알 수 없는 오류가 발생하였습니다!" })
-            }
-        )//end catch
+
+
+
+
+
     // let bodyData: callLogDto = {
     //     "kakaoId": req.body.kakaoId,
     //     "state": req.body.state,
