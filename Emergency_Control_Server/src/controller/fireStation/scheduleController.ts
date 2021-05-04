@@ -5,6 +5,7 @@ import { manageScheduleDto } from "../../interface/manageScheduleDto";
 import { logger } from "../../config/logger";
 import { callLogDto } from "../../interface/callLogDto";
 
+
 async function addSchedule(req: Request, res: Response) {
     // manageScheduleService.select_schedule()
     let bodyData: manageScheduleDto = {
@@ -90,7 +91,21 @@ async function addSchedule(req: Request, res: Response) {
     //         }
     //     )//end catch
 }
-
+async function findSchedule(req: Request, res: Response) {
+    let bodyData: manageScheduleDto = {
+        "kakaoId": req.body.kakaoId,
+        "scheduleId": 0
+    }
+    try{
+        await manageScheduleService.select_schedule(bodyData)
+        .then(
+            (result: any)=>res.json(result)
+        )
+    }catch(errMsg){
+        res.json({ "message": errMsg })
+    }
+}
 export {
     addSchedule,
+    findSchedule
 }
