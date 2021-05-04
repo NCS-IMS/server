@@ -19,7 +19,7 @@ async function add_schedule(bodyData: manageScheduleDto) {
     await esr.findSchedule_scheduleId(bodyData.scheduleId)  //schedule이 있는지 확인
       .then((result: any) => {
         if (!result[0]) { //스케쥴을 찾을 수 없는 경우
-          throw `"${bodyData.scheduleId}" 값을 넣어 스케쥴을 찾을 수 없었습니다.`
+          throw `(${bodyData.scheduleId}) 값을 넣어 스케쥴을 찾을 수 없었습니다.`
          }
       })
 
@@ -47,7 +47,7 @@ async function select_schedule(bodyData: manageScheduleDto) {
     await emr.findEmergencyMan(bodyData.kakaoId)  //EMM이 있는지 확인
       .then((result: any) => {
         if (!result[0]) { //응급구조사를 찾을 수 없는 경우
-          throw `"${bodyData.kakaoId}" 값을 넣어 응급구조사를 찾을 수 없었습니다.`
+          throw `(${bodyData.kakaoId}) 값을 넣어 응급구조사를 찾을 수 없었습니다.`
          }
       })
 

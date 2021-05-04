@@ -14,7 +14,7 @@ async function addSchedule(req: Request, res: Response) {
             ()=>res.status(200).json({ "message": "성공적으로 생성되었습니다." })
         )
     }catch(errMsg){
-        res.status(500).json({ "message": errMsg })
+        res.status(202).json({ "message": errMsg })
     }
 }
 
@@ -31,8 +31,8 @@ async function findSchedule(req: Request, res: Response) {
                 "result": result[0].em_schedule
             } )
         )
-    }catch(errMsg){
-        res.status(500).json( {"message": errMsg } )
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
     }
 }
 export {
