@@ -69,7 +69,7 @@ function sendPushMessageIndividual(title: string, body: string, token:object) {
     'method': 'POST',
     'headers': {
       // replace authorization key with your key
-      'Authorization': 'key=' + process.env.FIREBASE_SERVER_KEY,
+      'Authorization': `key=${process.env.FIREBASE_SERVER_KEY}`,
       'Content-Type': 'application/json'
     },
     'body': JSON.stringify(notification_body)})
