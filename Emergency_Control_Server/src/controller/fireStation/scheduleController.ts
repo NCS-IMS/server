@@ -99,10 +99,13 @@ async function findSchedule(req: Request, res: Response) {
     try{
         await manageScheduleService.select_schedule(bodyData)
         .then(
-            (result: any)=>res.json(result)
+            (result: any)=>res.json( {
+                "message": "성공하였습니다.",
+                "result": result[0].em_schedule
+            } )
         )
     }catch(errMsg){
-        res.json({ "message": errMsg })
+        res.json( {"message": errMsg } )
     }
 }
 export {

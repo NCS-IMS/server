@@ -4,16 +4,16 @@ import { logger } from "../../config/logger";
 
 //USER CREATE
 async function write_log(bodyData:callLogDto){
-  const bgr = new callLogRepo;
   try{
+    const bgr = new callLogRepo;
     await bgr.insertLog(bodyData)
     return 1; //로그 저장 성공
-  }catch(err){
+  }catch(errMsg){
     logger.error({
       label:"[callService.ts - write_log]",
-      message: `\n\t└ err : ${err}`
+      message: `\n\t└ err : ${errMsg}`
     })
-    return 0; //로그 저장 실패
+    throw errMsg;
   }
 }
 export {
