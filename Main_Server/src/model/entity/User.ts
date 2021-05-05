@@ -65,8 +65,13 @@ export class User{
         default: 0,
         comment: '상태 (0:정상 / 1:회원탈퇴)'
     })
-    
     flag?: number;
+
+    @Column({
+        type:"date",
+        comment: '생일'
+    })
+    birth: Date;
 
     @CreateDateColumn()
     createDate: Date;

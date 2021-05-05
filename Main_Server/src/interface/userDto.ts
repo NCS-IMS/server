@@ -11,4 +11,5 @@ export interface userDto{
     email?: string;
     age?: number;
     door?: object;
+    birth?: string;
 }

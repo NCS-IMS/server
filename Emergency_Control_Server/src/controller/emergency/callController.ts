@@ -30,77 +30,27 @@ async function callMain(req: Request, res: Response) {
         //          })
         //     }
         // )
-        var pageCount = 1;
-        let fireStations: Array<object> = [];
-        while (pageCount) {
-            let resultData: any = await find_publicInstitutions(bodyData, pageCount)
+
+        //'공공기관' 안에서 소방서 찾기
+        var pageCount = 1;      // API 상으로 체크할 Page Number
+        let fireStations: Array<object> = [];   // 소방서 데이터를 출력할 Array Object - 사실 Object써도 됨
+        while (pageCount<10) {  // 최대 10페이지까지 찾기 
+            let resultData: any = await find_publicInstitutions(bodyData, pageCount)    //API찾기
             // console.log(resultData)
-            for (let key in resultData.documents) {
+            for (let key in resultData.documents) { //찾은 Data 안에서 소방서 값 찾기
                 let tmp = resultData.documents[key].category_name.split(' > ')[2];
-                // console.log(resultData.documents[key].category_name)
-                // console.log(resultData.documents[key].place_name)
-                if (tmp == "소방서") {
+                if (tmp == "소방서") {  //있는경우 ARRAY에 PUSH함.
                     fireStations.push(resultData.documents[key])
-                    break;
+                    break;  //For문 탈출
                 }
             }
-            if (fireStations.length <= 0) {
-                pageCount++;
-            } else {
-                break;
-            }
+            if (fireStations.length <= 0) pageCount++;    //못 찾은경우 ++
+            else break; //찾은경우 while문 탈출
         }
         res.status(200).json({
             "message": "성공하였습니다.",
             "result": fireStations
         })
-        // await find_publicInstitutions(bodyData, 1)
-
-
-        //test
-        // await find_publicInstitutions(bodyData, 1)   //공공기관 찾기
-        // .then(
-        //     (result:any)=>{
-        //         //소방서 데이터만 추출
-        //         let resultData = result.documents;
-        //         var pageCount = 1;
-        //         let fireStations:Array<object> = [];
-        //         console.log("FF")
-        //         console.log(fireStations==undefined)
-        //         console.log(fireStations[0]==undefined)
-        //         console.log(fireStations.length<=0)
-
-        //         while(pageCount<5){
-        //             for(let key in resultData){
-        //                 let tmp = resultData[key].category_name.split(' > ')[2];
-        //                 if(tmp == "소방서"){
-        //                     fireStations.push(resultData[key])
-        //                 }
-        //             }
-        //             if(fireStations.length<=0){
-        //                 pageCount++;
-        //                 find_publicInstitutions(bodyData, pageCount)
-
-        //             }
-        //         }
-
-
-
-        //         // for(let key in resultData){
-        //         //     let tmp = resultData[key].category_name.split(' > ')[2];
-        //         //     // console.log(resultData[key].category_name.split(' > ')[2])
-
-        //         //     if(tmp == "소방서"){
-        //         //         forInCount = 0;
-        //         //     }
-        //         // }
-        //         res.status(200).json({ 
-        //             "message": "성공하였습니다.",
-        //             "result": result
-        //          })
-        //     }
-        //     //tttteeesssttt
-        // )
     } catch (errMsg) {
         res.status(202).json({ "message": errMsg })
     }

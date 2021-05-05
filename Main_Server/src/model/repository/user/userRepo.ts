@@ -43,8 +43,9 @@ export class userRepo extends Repository<User> {
         return getRepository(User).findOne({
             select:([
                 "name",
-                "gender",
+                "phone",
                 "email",
+                
             ]),
             where:{kakaoId : kakaoId},
         });

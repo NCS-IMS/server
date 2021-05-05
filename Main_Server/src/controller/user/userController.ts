@@ -17,6 +17,7 @@ function createUser(req:Request, res:Response){
         "email": req.body.email,
         "age": req.body.age,
         "flag": 0,
+        "birth": req.body.birth,
         "door": {"id": req.body.doorId}
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}
