@@ -49,14 +49,21 @@ export class EM_Schedule{
     @UpdateDateColumn()
     updateDate: Date;
 
+    @Column({
+        length: 15,
+        comment: 'firestation id'
+    })
+    fireStationId: string;
+
     //  FK AREA
     //  to Fire_station
-    @ManyToOne(
-        (type)=>Fire_Station,
-        (fire_station)=>fire_station.em_schedule,
-        {nullable: false}
-    )
-    fire_station: Fire_Station
+    //지움
+    // @ManyToOne(
+    //     (type)=>Fire_Station,
+    //     (fire_station)=>fire_station.em_schedule,
+    //     {nullable: false}
+    // )
+    // fire_station: Fire_Station
 
     // @OneToMany(
     //     (type)=>Schedule_Man,

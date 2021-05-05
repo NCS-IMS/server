@@ -56,7 +56,6 @@ async function callMain(req: Request, res: Response) {
 
         res.status(200).json({
             "message": "성공하였습니다.",
-            "result": fireStationId
         })
     } catch (errMsg) {
         res.status(202).json({ "message": errMsg })

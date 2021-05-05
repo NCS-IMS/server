@@ -51,11 +51,11 @@ export class Fire_Station{
 
     //  FK AREA
     //  for em_schedule
-    @OneToMany(
-        (type)=>EM_Schedule,
-        (em_schedule)=>em_schedule.fire_station
-    )
-    em_schedule:EM_Schedule[];
+    // @OneToMany(
+    //     (type)=>EM_Schedule,
+    //     (em_schedule)=>em_schedule.fire_station
+    // )
+    // em_schedule:EM_Schedule[];
 
     //  for control_tower
     @OneToMany(

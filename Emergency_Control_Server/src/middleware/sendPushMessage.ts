@@ -77,7 +77,7 @@ function sendPushMessageIndividual(title: string, body: string, token:object) {
     return 1;
   })
   .catch(function (error: any) {
-    console.error(error);
+    throw error
   })
 }
 

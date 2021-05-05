@@ -23,6 +23,7 @@ async function write_log(bodyData:callLogDto){
 async function search_schedule(fireStationId: string){
   try{
     const esr = new emScheduleRepo;
+    
     let result = await esr.findScheduleDate_fireStationId(fireStationId);
 
     //필요 시 정/부에 따라 다음 응급대기조가 가게끔 하는 코드 추가
