@@ -8,16 +8,16 @@ export class EM_Schedule{
     id: number;
 
     @Column({
-        length: 8,
-        comment: '구급차의 차 번호'
-    })
-    car_num: string;
-
-    @Column({
         length: 50,
         comment: '메모'
     })
     notice: string;
+
+    @Column({
+        length: 8,
+        comment: '구급차의 차 번호'
+    })
+    car_num: string;
     
 
     // @Column({

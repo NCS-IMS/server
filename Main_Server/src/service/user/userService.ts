@@ -9,12 +9,12 @@ async function create_user(bodyData: userDto) {
     if (await bgr.findOneUser(bodyData.kakaoId) != undefined) return "회원가입된 ID가 이미 존재합니다"
     await bgr.insertUser(bodyData)
     return "성공적으로 추가되었습니다.";
-  } catch (err) {
+  } catch (errMsg) {
     logger.error({
       label: "[userService.ts - create_user]",
-      message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
+      message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${errMsg} `
     })
-    return `Database Insert ERR.`;
+    throw errMsg;
   }
 }
 
@@ -23,12 +23,12 @@ async function find_user() {
   const bgr = new userRepo;
   try {
     return await bgr.findAllUser()
-  } catch (err) {
+  } catch (errMsg) {
     logger.error({
       label: "[userService.ts - find_user]",
-      message: `\n\t└ err : ${err}`
+      message: `\n\t└ err : ${errMsg}`
     })
-    return `Database Select ERR.`;
+    throw errMsg;
   }
 }
 
@@ -46,12 +46,12 @@ async function find_user_detail(kakaoId: string) {
 
     else return "해당 유저는 휴면상태입니다."
 
-  } catch (err) {
+  } catch (errMsg) {
     logger.error({
       label: "[userService.ts - find_user_detail]",
-      message: `\n\t└ input data(kakaoId) : ${kakaoId} \n\t└ err : ${err} `
+      message: `\n\t└ input data(kakaoId) : ${kakaoId} \n\t└ err : ${errMsg} `
     })
-    return `Database Select Detail ERR.`;
+    throw errMsg;
   }
 }
 
@@ -68,11 +68,12 @@ async function update_user(bodyData: userDto) {
       label: "[userService.ts - update_user]",
       message: `\n\t└ input data(form) : ${bodyData.kakaoId}\n\t└ warning : 해당하는 유저가 존재하지 않습니다. `
     })
-  } catch (err) {
+  } catch (errMsg) {
     logger.error({
       label: "[userService.ts - update_user]",
-      message: `\n\t└ query : ${err.query} \n\t└ input data(form) : ${err.parameters} \n\t└ err : ${err} `
+      message: `\n\t└ query : ${errMsg.query} \n\t└ input data(form) : ${errMsg.parameters} \n\t└ err : ${errMsg} `
     })
+    throw errMsg;
   }
   return 0;  //유저가 없거나 에러가 발생한 경우
 }
@@ -94,12 +95,12 @@ async function deleteUserFlag(kakaoId: string, flag: number) {
       }
     }
     else return "삭제할 유저가 존재하지 않습니다.";
-  } catch (err) {
+  } catch (errMsg) {
     logger.error({
       label: "[userService.ts - delete_user]",
-      message: `\n\t└ input data(flag) : ${flag} \n\t└ err : ${err} `
+      message: `\n\t└ input data(flag) : ${flag} \n\t└ err : ${errMsg} `
     })
-    return `Database Delete ERR.`;
+    throw errMsg;
   }
 }
 

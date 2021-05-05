@@ -25,60 +25,105 @@ function createUser(req:Request, res:Response){
     //Image Check
     // if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
     if(req.body.imgSrc != undefined) bodyData.imgSrc = req.body.imgSrc
-    userService.create_user(bodyData)
+
+    //new
+    try{
+        userService.create_user(bodyData)
         .then(
             (result: any)=>{
-                res.json({"message":result})
+                res.status(200).json({
+                    "message": "성공하였습니다.",
+                    "result": result
+                })
             }
         )//end then
-        .catch(
-            (err: any)=>{
-                logger.error({
-                    label:"[userController.ts - create_user]",
-                    message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
-                })
-                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
-            }
-        )//end catch
+    }catch(errMsg){
+        res.status(202).json({ "message": errMsg })
+    }
+    //old
+    // userService.create_user(bodyData)
+    //     .then(
+    //         (result: any)=>{
+    //             res.json({"message":result})
+    //         }
+    //     )//end then
+    //     .catch(
+    //         (err: any)=>{
+    //             logger.error({
+    //                 label:"[userController.ts - create_user]",
+    //                 message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
+    //             })
+    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+    //         }
+    //     )//end catch
 }
 
 //Find All User
 function findAllUser(req:Request, res:Response){
-    userService.find_user()
+    //new
+    try{
+        userService.find_user()
         .then(
             (result: any)=>{
-                res.json({"message":result})
-            }
-        )//end then
-        .catch(
-            (err: any)=>{
-                logger.error({
-                    label:"[userController.ts - findAllUser]",
-                    message: `\n\t└ err : ${err} `
+                res.status(200).json({
+                    "message": "성공하였습니다.",
+                    "result": result
                 })
-                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
             }
-        )//end catch
+        )
+    }catch(errMsg){
+        res.status(202).json({ "message": errMsg })
+    }
+
+    // userService.find_user()
+    //     .then(
+    //         (result: any)=>{
+    //             res.json({"message":result})
+    //         }
+    //     )//end then
+    //     .catch(
+    //         (err: any)=>{
+    //             logger.error({
+    //                 label:"[userController.ts - findAllUser]",
+    //                 message: `\n\t└ err : ${err} `
+    //             })
+    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+    //         }
+    //     )//end catch
 }
 
 //Find One User
 function findOneUser(req:Request, res:Response){
     let kakaoId: any = req.query.kakaoId;
-    userService.find_user_detail(kakaoId)
+    try{
+        userService.find_user_detail(kakaoId)
         .then(
             (result: any)=>{
-                res.json({"message":result})
-            }
-        )//end then
-        .catch(
-            (err: any)=>{
-                logger.error({
-                    label:"[userController.ts - findOneUser]",
-                    message: `\n\t└ err : ${err} `
+                res.status(200).json({
+                    "message": "성공하였습니다.",
+                    "result": result
                 })
-                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
             }
-        )//end catch
+        )
+    }catch(errMsg){
+        res.status(202).json({ "message": errMsg })
+    }
+
+    // userService.find_user_detail(kakaoId)
+    //     .then(
+    //         (result: any)=>{
+    //             res.json({"message":result})
+    //         }
+    //     )//end then
+    //     .catch(
+    //         (err: any)=>{
+    //             logger.error({
+    //                 label:"[userController.ts - findOneUser]",
+    //                 message: `\n\t└ err : ${err} `
+    //             })
+    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+    //         }
+    //     )//end catch
 }
 
 //Update User
@@ -96,57 +141,95 @@ function updateUser(req:Request, res:Response){
         // "board_groups": {"group_id": req.body.group_id}
     }
 
+    try{
+        userService.update_user(bodyData)
+        .then(
+            (result: any)=>{
+                res.status(200).json({
+                    "message": "성공하였습니다.",
+                    "result": result
+                })
+                // var returnString: string = '';
+                
+                // if(!result){
+                //     returnString= "Database Update ERR."
+                //     res.json({"message":returnString})
+                // }else{
+                    
+                // }
+                // res.json({"message":returnString})
+            }
+        )
+    }catch(errMsg){
+        res.status(202).json({ "message": errMsg })
+    }
     //Image Check
     // if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
     // else bodyData.imgSrc= ''
-    userService.update_user(bodyData)
-        .then(
-            (result: any)=>{
-                var returnString: string = '';
+
+    //fff
+    // userService.update_user(bodyData)
+    //     .then(
+    //         (result: any)=>{
+    //             var returnString: string = '';
                 
-                if(!result){
-                    returnString= "Database Update ERR."
-                    res.json({"message":returnString})
-                }else{
-                    returnString = "성공적으로 수정되었습니다."
-                    res.json({
-                        "message":returnString,
-                        "name":result   //APP단 TEST용도로 추가함.
-                    })
-                }
-                // res.json({"message":returnString})
-            }
-        )//end then
-        .catch(
-            (err: any)=>{
-                logger.error({
-                    label:"[userController.ts - create_user]",
-                    message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
-                })
-                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
-            }
-        )//end catch
+    //             if(!result){
+    //                 returnString= "Database Update ERR."
+    //                 res.json({"message":returnString})
+    //             }else{
+    //                 returnString = "성공적으로 수정되었습니다."
+    //                 res.json({
+    //                     "message":returnString,
+    //                     "name":result   //APP단 TEST용도로 추가함.
+    //                 })
+    //             }
+    //             // res.json({"message":returnString})
+    //         }
+    //     )//end then
+    //     .catch(
+    //         (err: any)=>{
+    //             logger.error({
+    //                 label:"[userController.ts - create_user]",
+    //                 message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
+    //             })
+    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+    //         }
+    //     )//end catch
 }
 //Find One User
 function deleteUserFlag(req:Request, res:Response){
     let kakaoId: any = req.body.kakaoId;
     let flag: any = req.body.flag;
 
-    userService.deleteUserFlag(kakaoId, flag)
+    try{
+        userService.deleteUserFlag(kakaoId, flag)
         .then(
             (result: any)=>{
-                res.json({"message":result})
+                res.status(200).json({
+                    "message": "성공하였습니다.",
+                    "result": result
+                })
             }
         )//end then
-        .catch(
-            (err: any)=>{
-                logger.error({
-                    label:"[userController.ts - deleteUserFlag]",
-                    message: `\n\t└ err : ${err} `
-                })
-                res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
-            }
-        )//end catch
+    }catch(errMsg){
+        res.status(202).json({ "message": errMsg })
+    }
+
+    // userService.deleteUserFlag(kakaoId, flag)
+    //     .then(
+    //         (result: any)=>{
+    //             res.json({"message":result})
+    //         }
+    //     )//end then
+    //     .catch(
+    //         (err: any)=>{
+    //             logger.error({
+    //                 label:"[userController.ts - deleteUserFlag]",
+    //                 message: `\n\t└ err : ${err} `
+    //             })
+    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
+    //         }
+    //     )//end catch
 }
 export{
     createUser,

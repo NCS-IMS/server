@@ -1,4 +1,4 @@
-import { EntityRepository, Repository, getRepository, getConnection} from "typeorm";
+import { EntityRepository, Repository, getRepository, getConnection } from "typeorm";
 import { manageScheduleDto } from "../../../interface/manageScheduleDto";
 import { Emergency_Man } from "../../entity/Emergency_Man";
 import { EM_Schedule } from "../../entity/EM_Schedule";
@@ -8,10 +8,10 @@ import { EM_Schedule } from "../../entity/EM_Schedule";
 export class manageScheduleRepo extends Repository<Emergency_Man> {
 
     //다대다로 설정된 스케쥴 추가
-    async addSchedule(bd : any, bodyData: manageScheduleDto) {
+    async addSchedule(bd: any, bodyData: manageScheduleDto) {
         const em_schedule = new EM_Schedule();
         em_schedule.id = bodyData.scheduleId;       //schedule id 먼저 Save
-        
+
         const emergency_man = new Emergency_Man();
         emergency_man.kakaoId = bodyData.kakaoId;   //Kakao id Save
 
@@ -26,8 +26,8 @@ export class manageScheduleRepo extends Repository<Emergency_Man> {
         //     .execute()
     }
 
-    //다대다로 설정된 emergency_man 찾기
-    findManageSchedule_KakaoId(kakaoId: string){
+    //다대다로 설정된 emergency_man 찾기 - kakaoId
+    findManageSchedule_KakaoId(kakaoId: string) {
         // return getRepository(Emergency_Man).find({relations:["em_schedule"]})
         return getRepository(Emergency_Man)
             .createQueryBuilder("Emergency_Man")
@@ -41,9 +41,26 @@ export class manageScheduleRepo extends Repository<Emergency_Man> {
         // .where("kakaoId = :kakaoId", { kakaoId: "1714222103" })
         // .execute();
     }
+    
+    //다대다로 설정된 emergency_man 찾기 - scheduleId
+    findManageSchedule_scheduleId(scheduleId: string) {
+        // return getRepository(Emergency_Man).find({relations:["em_schedule"]})
+        return getRepository(Emergency_Man)
+            .createQueryBuilder("Emergency_Man")
+            .leftJoinAndSelect("Emergency_Man.em_schedule", "em_schedule")
+            .where("id = :scheduleId", { scheduleId: scheduleId })
+            .getMany()
+
+        // return getRepository(Emergency_Man)
+        // .createQueryBuilder()
+        // .select("kakaoId")
+        // .where("kakaoId = :kakaoId", { kakaoId: "1714222103" })
+        // .execute();
+    }
+
 
     //이미 지정이 되어있는지 확인
-    findManageScheduleAll(bodyData: manageScheduleDto){
+    findManageScheduleAll(bodyData: manageScheduleDto) {
         // return getRepository(Emergency_Man).find({relations:["em_schedule"]})
         return getRepository(Emergency_Man)
             .createQueryBuilder("Emergency_Man")

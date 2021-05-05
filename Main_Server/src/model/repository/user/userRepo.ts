@@ -44,8 +44,9 @@ export class userRepo extends Repository<User> {
             select:([
                 "name",
                 "phone",
-                "email",
-                
+                "birth",
+                "address",
+                "bloodType",
             ]),
             where:{kakaoId : kakaoId},
         });

@@ -40,8 +40,6 @@ async function find_publicInstitutions(bodyData: callLogDto, pageCount: number) 
     let group_cord: string = "PO3"; // 공공기관
     let radius: number = 20000;     // 범위
     let parseUrl = `https://dapi.kakao.com/v2/local/search/category.json?category_group_code=${group_cord}&radius=${radius}&x=${bodyData.longitude}&y=${bodyData.latitude}&page=${pageCount}`
-    
-    console.log(parseUrl)
     return requestModule(parseUrl, 'GET', 'kakao')
 
   }catch (errMsg){
