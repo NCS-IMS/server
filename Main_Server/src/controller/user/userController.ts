@@ -95,8 +95,21 @@ function findAllUser(req:Request, res:Response){
 //Find One User
 function findOneUser(req:Request, res:Response){
     let kakaoId: any = req.query.kakaoId;
-    try{
-        userService.find_user_detail(kakaoId)
+    // try{
+    //     userService.find_user_detail(kakaoId)
+    //     .then(
+    //         (result: any)=>{
+    //             res.status(200).json({
+    //                 "message": "성공하였습니다.",
+    //                 "result": result
+    //             })
+    //         }
+    //     )
+    // }catch(errMsg){
+    //     res.status(202).json({ "message": errMsg })
+    // }
+
+    userService.find_user_detail(kakaoId)
         .then(
             (result: any)=>{
                 res.status(200).json({
@@ -104,26 +117,16 @@ function findOneUser(req:Request, res:Response){
                     "result": result
                 })
             }
-        )
-    }catch(errMsg){
-        res.status(202).json({ "message": errMsg })
-    }
-
-    // userService.find_user_detail(kakaoId)
-    //     .then(
-    //         (result: any)=>{
-    //             res.json({"message":result})
-    //         }
-    //     )//end then
-    //     .catch(
-    //         (err: any)=>{
-    //             logger.error({
-    //                 label:"[userController.ts - findOneUser]",
-    //                 message: `\n\t└ err : ${err} `
-    //             })
-    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
-    //         }
-    //     )//end catch
+        )//end then
+        .catch(
+            (errMsg: any)=>{
+                // logger.error({
+                //     label:"[userController.ts - findOneUser]",
+                //     message: `\n\t└ err : ${errMsg} `
+                // })
+                res.status(202).json({"message" : errMsg})
+            }
+        )//end catch
 }
 
 //Update User
