@@ -27,8 +27,21 @@ function createUser(req:Request, res:Response){
     if(req.body.imgSrc != undefined) bodyData.imgSrc = req.body.imgSrc
 
     //new
-    try{
-        userService.create_user(bodyData)
+    // try{
+    //     userService.create_user(bodyData)
+    //     .then(
+    //         (result: any)=>{
+    //             res.status(200).json({
+    //                 "message": "성공하였습니다.",
+    //                 "result": result
+    //             })
+    //         }
+    //     )//end then
+    // }catch(errMsg: any){
+    //     res.status(202).json({ "message": errMsg })
+    // }
+    //old
+    userService.create_user(bodyData)
         .then(
             (result: any)=>{
                 res.status(200).json({
@@ -37,25 +50,11 @@ function createUser(req:Request, res:Response){
                 })
             }
         )//end then
-    }catch(errMsg){
-        res.status(202).json({ "message": errMsg })
-    }
-    //old
-    // userService.create_user(bodyData)
-    //     .then(
-    //         (result: any)=>{
-    //             res.json({"message":result})
-    //         }
-    //     )//end then
-    //     .catch(
-    //         (err: any)=>{
-    //             logger.error({
-    //                 label:"[userController.ts - create_user]",
-    //                 message: `\n\t└ input data(form) : ${bodyData} \n\t└ err : ${err} `
-    //             })
-    //             res.json({"message" : "알 수 없는 오류가 발생하였습니다!"})
-    //         }
-    //     )//end catch
+        .catch(
+            (errMsg: any)=>{
+                res.status(202).json({ "message": errMsg })
+            }
+        )//end catch
 }
 
 //Find All User

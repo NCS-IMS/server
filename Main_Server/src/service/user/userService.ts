@@ -6,7 +6,7 @@ import { logger } from "../../config/logger";
 async function create_user(bodyData: userDto) {
   const bgr = new userRepo;
   try {
-    if (await bgr.findOneUser(bodyData.kakaoId) != undefined) return "회원가입된 ID가 이미 존재합니다"
+    if (await bgr.findOneUser(bodyData.kakaoId) != undefined) throw "회원가입된 ID가 이미 존재합니다"
     await bgr.insertUser(bodyData)
     return "성공적으로 추가되었습니다.";
   } catch (errMsg) {
