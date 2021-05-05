@@ -45,8 +45,7 @@ function createUser(req:Request, res:Response){
         .then(
             (result: any)=>{
                 res.status(200).json({
-                    "message": "성공하였습니다.",
-                    "result": result
+                    "message": result
                 })
             }
         )//end then
@@ -143,28 +142,42 @@ function updateUser(req:Request, res:Response){
         // "board_groups": {"group_id": req.body.group_id}
     }
 
-    try{
-        userService.update_user(bodyData)
+    userService.update_user(bodyData)
         .then(
             (result: any)=>{
                 res.status(200).json({
-                    "message": "성공하였습니다.",
-                    "result": result
+                    "message": result
                 })
-                // var returnString: string = '';
-                
-                // if(!result){
-                //     returnString= "Database Update ERR."
-                //     res.json({"message":returnString})
-                // }else{
-                    
-                // }
-                // res.json({"message":returnString})
             }
-        )
-    }catch(errMsg){
-        res.status(202).json({ "message": errMsg })
-    }
+        )//end then
+        .catch(
+            (errMsg: any)=>{
+                res.status(202).json({ "message": errMsg })
+            }
+        )//end catch
+
+    // try{
+    //     userService.update_user(bodyData)
+    //     .then(
+    //         (result: any)=>{
+    //             res.status(200).json({
+    //                 "message": "성공하였습니다.",
+    //                 "result": result
+    //             })
+    //             // var returnString: string = '';
+                
+    //             // if(!result){
+    //             //     returnString= "Database Update ERR."
+    //             //     res.json({"message":returnString})
+    //             // }else{
+                    
+    //             // }
+    //             // res.json({"message":returnString})
+    //         }
+    //     )
+    // }catch(errMsg){
+    //     res.status(202).json({ "message": errMsg })
+    // }
     //Image Check
     // if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname
     // else bodyData.imgSrc= ''

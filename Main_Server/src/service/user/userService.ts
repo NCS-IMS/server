@@ -64,12 +64,11 @@ async function update_user(bodyData: userDto) {
     //유저 존재여부 파악
     if (await bgr.findOneUser(bodyData.kakaoId) != undefined) {
       await bgr.updateUser(bodyData)
-      return bodyData.name; //APP단 TEST용도로 추가함.
+      return "성공하였습니다"; //APP단 TEST용도로 추가함.
     }
-    logger.warn({
-      label: "[userService.ts - update_user]",
-      message: `\n\t└ input data(form) : ${bodyData.kakaoId}\n\t└ warning : 해당하는 유저가 존재하지 않습니다. `
-    })
+    else{
+      throw "해당하는 유저가 존재하지 않습니다."
+    }
   } catch (errMsg) {
     logger.error({
       label: "[userService.ts - update_user]",
@@ -77,7 +76,6 @@ async function update_user(bodyData: userDto) {
     })
     throw errMsg;
   }
-  return 0;  //유저가 없거나 에러가 발생한 경우
 }
 
 //USER Delete - Flag 변경
