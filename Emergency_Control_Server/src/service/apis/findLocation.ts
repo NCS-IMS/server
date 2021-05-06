@@ -51,10 +51,26 @@ async function find_publicInstitutions(bodyData: callLogDto, pageCount: number) 
   }
 }
 
-
+//응급실 위치 찾기
+async function find_emergencyRoom(bodyData: callLogDto) {
+  try {
+    let group_cord: string = "HP8"; //병원
+    let radius: number = 20000;     //범위
+    let parseUrl = `https://dapi.kakao.com/v2/local/search/keyword.json?&x=${bodyData.longitude}&y=${bodyData.latitude}&radius=${radius}&query=${encodeURI("응급실")}`
+    return requestModule(parseUrl, 'GET', 'kakao')
+    
+  }catch (errMsg){
+    logger.error({
+      label: "[findHospital.ts - find_emergencyRoom]",
+      message: `\n\t└ err : ${errMsg}`
+    })
+    throw errMsg;
+  }
+}
 
 export { 
   find_hospital,
   find_userLocation,
-  find_publicInstitutions
+  find_publicInstitutions,
+  find_emergencyRoom
 };

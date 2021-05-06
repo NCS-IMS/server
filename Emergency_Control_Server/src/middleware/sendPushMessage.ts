@@ -50,7 +50,7 @@ function sendPushMessageGroup(title: string, body: string, topic: string) {
 }
 
 //개인 단위
-function sendPushMessageIndividual(title: string, body: string, token:object) {
+async function sendPushMessageIndividual(title: string, body: string, token:object) {
   let bodyData: pushMessageDto = {
     "title": title,
     "body": body,

@@ -17,7 +17,9 @@ function requestModule(url:string, method:string, type:string){
   if(type=='pdp'){
     options.uri+=`&serviceKey=${process.env.PDP_API_KEY}`
   }else if(type='kakako'){
-    options.headers = { Authorization: `KakaoAK ${process.env.KAKAO_API_KEY}` }
+    options.headers = {
+      Authorization: `KakaoAK ${process.env.KAKAO_API_KEY}`
+     }
   }else{
     throw `Request Middleware에 ${type}이(가) 들어왔습니다.`
   }

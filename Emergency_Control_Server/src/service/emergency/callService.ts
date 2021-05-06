@@ -23,15 +23,17 @@ async function write_log(bodyData:callLogDto){
 async function search_schedule(fireStationId: string){
   try{
     const esr = new emScheduleRepo;
-    
     let result = await esr.findScheduleDate_fireStationId(fireStationId);
-
     //필요 시 정/부에 따라 다음 응급대기조가 가게끔 하는 코드 추가
+
+    //데이터가 없을 때
+    if(!result.length) throw "데이터가 존재하지 않습니다."
 
     //현재는 첫 번째것 넣기
     const msr = new manageScheduleRepo;
     //스케쥴 ID에 배정되어있는 Emergency Man 찾기
-    let emergency_mans : any = await msr.findManageSchedule_scheduleId(result[0].id);
+    let emergency_mans : any = await msr.findManageSchedule_scheduleId(await result[0].id);
+
     let tokens : Array<object> = [];
     
     for(let key in emergency_mans){
@@ -41,7 +43,7 @@ async function search_schedule(fireStationId: string){
   }catch(errMsg){
     logger.error({
       label:"[callService.ts - search_schedule]",
-      message: `\n\t└ err : ${errMsg}`
+      message: `\n\t└ input data(form) : ${fireStationId} \n\t└ err : ${errMsg} `
     })
     throw errMsg;
   }

@@ -24,7 +24,7 @@ export class emScheduleRepo extends Repository<EM_Schedule> {
             "startDate",
             "endDate"
         ])
-        .where("fireStationId = :id", {id: fireStationId})
+        .where("fireStationId = :fireStationId", {fireStationId: fireStationId})
         .andWhere("startDate < NOW()")
         .andWhere("endDate > NOW()")
         .execute();
