@@ -7,7 +7,7 @@ async function find_hospital(bodyData: findDirectionDto) {
   try {
     let group_cord: string = "HP8"; //병원
     let radius: number = 20000;     //범위
-    let parseUrl = `https://dapi.kakao.com/v2/local/search/category.json?category_group_code=${group_cord}&radius=${radius}&x=${bodyData.latitude}&y=${bodyData.longitude}`
+    let parseUrl = `https://dapi.kakao.com/v2/local/search/category.json?category_group_code=${group_cord}&radius=${radius}&x=${bodyData.longitude}&y=${bodyData.latitude}`
     return requestModule(parseUrl, 'GET', 'kakao')
     
   }catch (errMsg){
