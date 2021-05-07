@@ -19,7 +19,7 @@ async function find_hospital(bodyData: findDirectionDto) {
   }
 }
 
-//병원 위치 찾기
+//약국 위치 찾기
 async function find_pharmacy(bodyData: findDirectionDto) {
   try {
     let group_cord: string = "PM9"; //병원

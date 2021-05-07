@@ -8,6 +8,7 @@ import { logger } from "../../config/logger";
 async function write_log(bodyData:callLogDto){
   try{
     const bgr = new callLogRepo;
+    console.log(bodyData)
     await bgr.insertLog(bodyData)
     return 1; //로그 저장 성공
   }catch(errMsg){
@@ -39,7 +40,13 @@ async function search_schedule(fireStationId: string){
     for(let key in emergency_mans){
       tokens.push(emergency_mans[key].token)
     }
-    return tokens; //토큰 배출
+    let resultData : object ={
+      eid:result[0].id,
+      tokens:tokens
+    };
+
+    return resultData; //토큰 배출
+
   }catch(errMsg){
     logger.error({
       label:"[callService.ts - search_schedule]",

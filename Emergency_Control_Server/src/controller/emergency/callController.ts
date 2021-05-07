@@ -13,9 +13,7 @@ async function callMain(req: Request, res: Response) {
             "latitude": req.body.latitude,
             "longitude": req.body.longitude,
         }
-        await write_log(bodyData)       //로그 저장
         let userLocation: any = await find_userLocation(bodyData);  //환자 위치 정보 확인
-
 
         //'공공기관' 안에서 소방서 찾기
         let pageCount = 1;      // API 상으로 체크할 Page Number
@@ -37,11 +35,15 @@ async function callMain(req: Request, res: Response) {
             else break; //찾은경우 while문 탈출
         }
 
+        let schedule_data : any = await search_schedule(fireStationId)    //Token 찾기
         sendPushMessageIndividual(
             `${bodyData.state}환자 발생!!`,
             `${userLocation.documents[0].address.address_name}에 응급상황이 발생하였습니다.`,
-            await search_schedule(fireStationId)    //Token 찾기
+            await schedule_data.tokens
         )  //푸시메시지 전송
+
+        bodyData.em_schedule = {"id": schedule_data.eid};
+        await write_log(bodyData)       //로그 저장
 
         await find_emergencyRoom(bodyData)   //병원 찾기
         .then(

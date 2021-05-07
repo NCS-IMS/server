@@ -1,5 +1,5 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn} from "typeorm";
-
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, ManyToOne} from "typeorm";
+import { EM_Schedule } from "./EM_Schedule";
 @Entity("Call_Log")
 export class Call_Log{
 
@@ -41,4 +41,11 @@ export class Call_Log{
 
     @UpdateDateColumn()
     updateDate: Date;
+
+    @ManyToOne(
+        (type)=>EM_Schedule,
+        (em_schedule)=>em_schedule.call_log,
+    )
+    em_schedule: EM_Schedule
+    
 }

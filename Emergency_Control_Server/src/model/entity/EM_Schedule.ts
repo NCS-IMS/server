@@ -1,5 +1,5 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn, OneToMany, ManyToOne} from "typeorm";
-import { Fire_Station } from "./Fire_Station";
+import { Call_Log } from "./Call_Log";
 
 @Entity("EM_Schedule")
 export class EM_Schedule{
@@ -54,6 +54,12 @@ export class EM_Schedule{
         comment: 'firestation id'
     })
     fireStationId: string;
+
+    @OneToMany(
+        (type)=>Call_Log,
+        (call_log)=>call_log.em_schedule
+    )
+    call_log:Call_Log[];
 
     //  FK AREA
     //  to Fire_station
