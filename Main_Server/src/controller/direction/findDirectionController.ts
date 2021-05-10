@@ -22,9 +22,15 @@ async function findMain(req: Request, res: Response) {
                             if(result.documents[key].category_name.split(' > ')[2] == bodyData.option)
                             resultData.push(result.documents[key])
                         }
-                        res.status(200).json({ "message": resultData })
+                        res.status(200).json({ 
+                            "message": "성공하였습니다",
+                            "result": resultData
+                         })
                     }else{  //option 없는 경우
-                        res.status(200).json({ "message": result.documents })
+                        res.status(200).json({ 
+                            "message": "성공하였습니다",
+                            "result": result.documents
+                         })
                     }
                     
                 }
@@ -32,12 +38,14 @@ async function findMain(req: Request, res: Response) {
         }else if(urlQuery == 'pharmacy'){  //약국?
             await find_pharmacy(bodyData)
             .then(
-                (result:any)=>res.status(200).json({ "message": result.documents })
+                (result:any)=>res.status(200).json({ 
+                    "message": "성공하였습니다",
+                    "result": result.documents
+                 })
             )
         }else{
             throw "존재하지 않는 URL입니다"
         }
-        
     } catch (errMsg) {
         res.status(202).json({ "message": errMsg })
     }

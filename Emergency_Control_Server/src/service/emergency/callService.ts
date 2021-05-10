@@ -8,7 +8,6 @@ import { logger } from "../../config/logger";
 async function write_log(bodyData:callLogDto){
   try{
     const bgr = new callLogRepo;
-    console.log(bodyData)
     await bgr.insertLog(bodyData)
     return 1; //로그 저장 성공
   }catch(errMsg){

@@ -35,7 +35,34 @@ async function findSchedule(req: Request, res: Response) {
         res.status(202).json( {"message": errMsg } )
     }
 }
+
+async function findLogs(req: Request, res: Response) {
+    let bodyData: manageScheduleDto = {
+        "kakaoId": req.body.kakaoId,
+        "scheduleId": 0
+    }
+    try{
+        await select_schedule(bodyData)
+        .then(
+            (result: any)=>{
+                let scheduleIds : Array<number> = [];
+                for(let key in result[0].em_schedule){
+                    scheduleIds.push(result[0].em_schedule[key].id)
+                }
+                console.log("aa",scheduleIds)
+                res.status(200).json( {
+                    "message": "성공하였습니다.",
+                    "result": result[0].em_schedule
+                })
+            }
+        )
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
+    }
+}
+
 export {
     addSchedule,
-    findSchedule
+    findSchedule,
+    findLogs
 }

@@ -1,8 +1,8 @@
-import * as callController from '../controller/emergency/callController';
+import { findLogs } from '../controller/fireStation/scheduleController';
 import express from 'express'
 const router = express.Router();
 
-router.post('/', callController.callMain)
+router.post('/log', findLogs)
 
 // guestBookRouter.get('/main', guestBookMain)
 

@@ -4,6 +4,7 @@ import { createConnection } from 'typeorm';
 
 import emergencyCallRouter from "./router/emergency";
 import scheduleRouter from "./router/schedule";
+import userRouter from "./router/user";
 import testRouter from "./router/test";
 const app = express()
 
@@ -33,6 +34,7 @@ createConnection()
 
 app.use("/emergency", emergencyCallRouter);
 app.use("/schedule", scheduleRouter);
+app.use("/user", userRouter);
 app.use("/test", testRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{
