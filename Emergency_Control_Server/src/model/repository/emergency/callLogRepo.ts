@@ -13,4 +13,11 @@ export class callLogRepo extends Repository<Call_Log> {
         //     .values(bodyData)
         //     .execute()
     }
+
+    checkLog_scheduleId(bodyData: Array<number>) {
+        return getRepository(Call_Log)
+            .createQueryBuilder("bc")
+            .where("emScheduleId IN (:id)", { id: bodyData })
+            .getMany()
+    }
 }
