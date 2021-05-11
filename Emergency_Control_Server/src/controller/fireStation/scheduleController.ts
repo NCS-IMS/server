@@ -50,10 +50,9 @@ async function findLogs(req: Request, res: Response) {
                 for(let key in result[0].em_schedule){
                     scheduleIds.push(result[0].em_schedule[key].id)
                 }
-                await check_log(scheduleIds)
                 res.status(200).json( {
                     "message": "성공하였습니다.",
-                    "result": result[0].em_schedule
+                    "result": await check_log(scheduleIds)
                 })
             }
         )

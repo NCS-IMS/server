@@ -5,13 +5,9 @@ import { logger } from "../../config/logger";
 //Log read
 async function check_log(scheduleIds : Array<number>) {
     try {
-        console.log(scheduleIds)
         const bgr = new callLogRepo;
-        console.log(await bgr.checkLog_scheduleId(scheduleIds))
+        return await bgr.checkLogOne_scheduleId(scheduleIds)
         // return 1; //로그 저장 성공
-
-
-
     } catch (errMsg) {
         logger.error({
             label: "[userService.ts - check_log]",
@@ -20,6 +16,8 @@ async function check_log(scheduleIds : Array<number>) {
         throw errMsg;
     }
 }
+
+//
 
 export {
     check_log

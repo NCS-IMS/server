@@ -9,10 +9,14 @@ async function callMain(req: Request, res: Response) {
         let bodyData: callLogDto = {
             "kakaoId": req.body.kakaoId,
             "state": req.body.state,
-            "is_self": req.body.is_self,
+            "isSelf": req.body.is_self,
             "latitude": req.body.latitude,
             "longitude": req.body.longitude,
+            "userAddr": req.body.user_addr,
+            "anamnesis": req.body.anamnesis,
+            "medicine": req.body.medicine,
         }
+
         let userLocation: any = await find_userLocation(bodyData);  //환자 위치 정보 확인
 
         //'공공기관' 안에서 소방서 찾기
@@ -43,6 +47,12 @@ async function callMain(req: Request, res: Response) {
         )  //푸시메시지 전송
 
         bodyData.em_schedule = {"id": schedule_data.eid};
+        
+        //있다면 넣기
+        if(req.body.medicine != undefined) bodyData.medicine = req.body.medicine
+        if(req.body.anamnesis != undefined) bodyData.anamnesis = req.body.anamnesis
+        if(req.body.user_addr != undefined) bodyData.userAddr = req.body.user_addr
+        bodyData.emAddr = userLocation.documents[0].address.address_name
         await write_log(bodyData)       //로그 저장
 
         await find_emergencyRoom(bodyData)   //병원 찾기

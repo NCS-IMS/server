@@ -14,10 +14,11 @@ export class callLogRepo extends Repository<Call_Log> {
         //     .execute()
     }
 
-    checkLog_scheduleId(bodyData: Array<number>) {
+    checkLogOne_scheduleId(bodyData: Array<number>) {
         return getRepository(Call_Log)
-            .createQueryBuilder("bc")
+            .createQueryBuilder("one_schedule")
             .where("emScheduleId IN (:id)", { id: bodyData })
-            .getMany()
+            .orderBy('id', 'DESC')
+            .getOne()
     }
 }

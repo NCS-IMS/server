@@ -7,7 +7,7 @@ export class Call_Log{
     id: number;
 
     @Column({
-        comment: '카카오 회원 ID',
+        comment: '응급 환자 카카오 회원 ID',
         length: 20
     })
     kakaoId: string;
@@ -22,7 +22,7 @@ export class Call_Log{
         type:"tinyint",
         comment: '본인여부 (본인:1/타인:0)'
     })
-    is_self: boolean;
+    isSelf: boolean;
     
     @Column({
         type:"double",
@@ -35,6 +35,30 @@ export class Call_Log{
         comment: '발생 위치 경도'
     })
     longitude: number;
+
+    @Column({
+        comment: '응급 환자의 작성 주소',
+        length: 100
+    })
+    userAddr: string;
+    
+    @Column({
+        comment: '응급 상황 발생한 위치',
+        length: 100
+    })
+    emAddr: string;
+
+    @Column({
+        comment: '환자 과거 벙력',
+        length: 50
+    })
+    anamnesis: string;
+
+    @Column({
+        comment: '환자 복용중인 약 정보',
+        length: 50
+    })
+    medicine: string;
 
     @CreateDateColumn()
     createDate: Date;
