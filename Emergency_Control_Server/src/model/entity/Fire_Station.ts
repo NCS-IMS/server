@@ -65,9 +65,9 @@ export class Fire_Station{
     control_tower:Control_Tower[];
 
     //  for Emergency MAN
-    @OneToMany(
-        (type)=>Emergency_Man,
-        (emergency_man)=>emergency_man.fire_station
-    )
-    emergency_man:Emergency_Man[];
+    // @OneToMany(
+    //     (type)=>Emergency_Man,
+    //     (emergency_man)=>emergency_man.fire_station
+    // )
+    // emergency_man:Emergency_Man[];
 }

@@ -7,7 +7,7 @@ export interface emergencyManDto{
     phone: string;
     email?: string;
     mac?: string;
-    fire_station?: object;
+    fireStationId?: string;
     token?: string;
     imgSrc?: string;
 }

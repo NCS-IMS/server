@@ -69,6 +69,12 @@ export class Emergency_Man{
     })
     token: string;
 
+    @Column({
+        length: 10,
+        comment: '소방서 ID'
+    })
+    fireStationId: string;
+
     @CreateDateColumn()
     createDate: Date;
 
@@ -76,12 +82,12 @@ export class Emergency_Man{
     updateDate: Date;
 
     //  for Fire_station
-    @ManyToOne(
-        (type)=>Fire_Station,
-        (fire_station)=>fire_station.emergency_man,
-        {nullable: false}
-    )
-    fire_station: Fire_Station
+    // @ManyToOne(
+    //     (type)=>Fire_Station,
+    //     (fire_station)=>fire_station.emergency_man,
+    //     {nullable: false}
+    // )
+    // fire_station: Fire_Station
 
     @ManyToMany(()=>EM_Schedule)
     @JoinTable()

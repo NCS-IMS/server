@@ -14,7 +14,7 @@ export class EM_Schedule{
     notice: string;
 
     @Column({
-        length: 8,
+        length: 9,
         comment: '구급차의 차 번호'
     })
     car_num: string;

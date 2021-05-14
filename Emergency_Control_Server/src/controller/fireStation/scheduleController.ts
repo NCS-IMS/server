@@ -75,7 +75,7 @@ async function createEmMan(req: Request, res: Response) {
         "token": req.body.token,
         "mac": req.body.mac,
         "flag": 0,
-        "fire_station": {"id": req.body.firestationId}
+        "fireStationId": req.body.firestationId
     }
     if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname   //img Check..
     try{
