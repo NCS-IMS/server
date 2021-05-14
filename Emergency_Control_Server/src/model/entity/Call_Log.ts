@@ -38,25 +38,29 @@ export class Call_Log{
 
     @Column({
         comment: '응급 환자의 작성 주소',
-        length: 100
+        length: 100,
+        nullable:true
     })
     userAddr: string;
     
     @Column({
         comment: '응급 상황 발생한 위치',
-        length: 100
+        length: 100,
+        nullable:true
     })
     emAddr: string;
 
     @Column({
         comment: '환자 과거 벙력',
-        length: 50
+        length: 50,
+        nullable:true
     })
     anamnesis: string;
 
     @Column({
         comment: '환자 복용중인 약 정보',
-        length: 50
+        length: 50,
+        nullable:true
     })
     medicine: string;
 

@@ -1,0 +1,13 @@
+export interface emergencyManDto{
+    kakaoId: string;
+    name: string;
+    flag: number;
+    birth: string;
+    gender: boolean;
+    phone: string;
+    email?: string;
+    mac?: string;
+    fire_station?: object;
+    token?: string;
+    imgSrc?: string;
+}

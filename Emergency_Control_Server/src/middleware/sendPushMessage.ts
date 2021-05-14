@@ -73,6 +73,7 @@ async function sendPushMessageIndividual(title: string, body: string, token:obje
       'Content-Type': 'application/json'
     },
     'body': JSON.stringify(notification_body)})
+
   .then(function (response: any) {
     return 1;
   })

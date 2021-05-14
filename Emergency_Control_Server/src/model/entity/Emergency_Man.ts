@@ -29,6 +29,39 @@ export class Emergency_Man{
         comment: '응급구조사의 MAC 주소'
     })
     mac: string;
+    
+    @Column({
+        length: 256,
+        nullable: true,
+        comment: '사진 경로'
+    })
+    imgSrc?: string;
+
+    @Column({
+        length: 30,
+        nullable: true,
+        comment: '이메일'
+    })
+    email?: string;
+
+    @Column({
+        type:"tinyint",
+        default: 0,
+        comment: '상태 (0:정상 / 1:회원탈퇴)'
+    })
+    flag?: number;
+
+    @Column({
+        type:"date",
+        comment: '생일'
+    })
+    birth: Date;
+
+    @Column({
+        type:"tinyint",
+        comment: '성별 (남:1/여:0)'
+    })
+    gender: boolean;
 
     @Column({
         length: 256,
