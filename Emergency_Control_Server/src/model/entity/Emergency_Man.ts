@@ -7,7 +7,7 @@ export class Emergency_Man{
 
     @Column({
         primary : true,
-        length: 20,
+        length: 50,
         comment: '카카오 회원 ID'
     })
     kakaoId: string;
@@ -25,10 +25,10 @@ export class Emergency_Man{
     phone: string;
 
     @Column({
-        length: 20,
-        comment: '응급구조사의 MAC 주소'
+        length: 36,
+        comment: '응급구조사의 UUID 주소'
     })
-    mac: string;
+    uuid: string;
     
     @Column({
         length: 256,
