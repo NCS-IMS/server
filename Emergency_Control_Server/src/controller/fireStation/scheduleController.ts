@@ -23,15 +23,18 @@ async function addSchedule(req: Request, res: Response) {
 async function findSchedule(req: Request, res: Response) {
     let bodyData: manageScheduleDto = {
         "kakaoId": req.body.kakaoId,
+        "startDate": req.body.startDate,
         "scheduleId": 0
     }
     try{
         await select_schedule(bodyData)
         .then(
-            (result: any)=>res.status(200).json( {
-                "message": "성공하였습니다.",
-                "result": result[0].em_schedule
-            } )
+            (result: any)=>{
+                res.status(200).json( {
+                    "message": "성공하였습니다.",
+                    "result": result
+                } )
+            }
         )
     }catch(errMsg: any){
         res.status(202).json( {"message": errMsg } )
@@ -41,15 +44,17 @@ async function findSchedule(req: Request, res: Response) {
 async function findLogs(req: Request, res: Response) {
     let bodyData: manageScheduleDto = {
         "kakaoId": req.body.kakaoId,
+        "startDate": req.body.startDate,
         "scheduleId": 0
     }
     try{
         await select_schedule(bodyData)
         .then(
             async (result: any)=>{
+                // console.log(result.em_schedule);
                 let scheduleIds : Array<number> = [];
-                for(let key in result[0].em_schedule){
-                    scheduleIds.push(result[0].em_schedule[key].id)
+                for(let key in result){
+                    scheduleIds.push(result[key].id)
                 }
                 res.status(200).json( {
                     "message": "성공하였습니다.",

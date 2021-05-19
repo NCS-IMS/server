@@ -52,7 +52,10 @@ async function select_schedule(bodyData: manageScheduleDto) {
       })
 
     const msr = new manageScheduleRepo;
-    return msr.findManageSchedule_KakaoId(bodyData.kakaoId)   //schedule에서 id에 해당하는 값 추출
+    let result:any = await msr.findManageSchedule_KakaoId(bodyData);
+    
+    if(await result[0]!=undefined) return result[0].em_schedule   //schedule에서 id에 해당하는 값 추출
+    else throw `${bodyData.kakaoId}님은 ${bodyData.startDate}에 스케쥴이 존재하지 않습니다!`
   
   }catch (errMsg){
 

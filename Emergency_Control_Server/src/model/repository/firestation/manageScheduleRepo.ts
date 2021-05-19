@@ -27,12 +27,13 @@ export class manageScheduleRepo extends Repository<Emergency_Man> {
     }
 
     //다대다로 설정된 emergency_man 찾기 - kakaoId
-    findManageSchedule_KakaoId(kakaoId: string) {
+    findManageSchedule_KakaoId(bodyData: manageScheduleDto) {
         // return getRepository(Emergency_Man).find({relations:["em_schedule"]})
         return getRepository(Emergency_Man)
             .createQueryBuilder("Emergency_Man")
             .leftJoinAndSelect("Emergency_Man.em_schedule", "em_schedule")
-            .where("kakaoId = :kakaoId", { kakaoId: kakaoId })
+            .where("kakaoId = :kakaoId", { kakaoId: bodyData.kakaoId })
+            .andWhere("DATE(startDate) = DATE(:startDate)", { startDate: bodyData.startDate })
             .getMany()
 
         // return getRepository(Emergency_Man)
