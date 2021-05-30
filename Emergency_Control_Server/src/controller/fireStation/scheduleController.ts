@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { add_schedule, select_schedule} from "../../service/firestation/manageScheduleService";
-import { check_log, createUser } from "../../service/user/userService";
+import { check_log, createUser, findUser, changeUserImage, restoreUser } from "../../service/user/userService";
 import { manageScheduleDto } from "../../interface/manageScheduleDto";
 import { emergencyManDto } from "../../interface/emergencyManDto";
 
@@ -72,7 +72,6 @@ async function createEmMan(req: Request, res: Response) {
     let bodyData: emergencyManDto = {
         "kakaoId": req.body.id,
         "name": req.body.name,
-        // "imgSrc": req.body.profile_image,
         "gender": req.body.gender,
         "email": req.body.email,
         "phone": req.body.mobile,
@@ -80,11 +79,61 @@ async function createEmMan(req: Request, res: Response) {
         "token": req.body.token,
         "mac": req.body.mac,
         "flag": 0,
-        "fireStationId": req.body.firestationId
+        "fireStationId": req.body.firestationId,
+        "uuid": req.body.uuid
     }
-    if(files.imgSrc!=undefined) bodyData.imgSrc= files.imgSrc[0].originalname   //img Check..
+    if(files.profile_image!=undefined) bodyData.imgSrc= files.profile_image[0].originalname   //img Check..
     try{
         await createUser(bodyData)
+        .then(
+            ()=>{
+                res.status(200).json( {
+                    "message": "성공하였습니다."
+                })
+            }
+        )
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
+    }
+}
+
+async function modifyImageEmMan(req: Request, res: Response) {
+    let bodyData: emergencyManDto = {
+        "kakaoId": req.body.id
+    }
+    let files : any = req.files;
+
+    try{
+        // 이미지 확인을 먼저.
+        if(files.profile_image!=undefined) bodyData.imgSrc= files.profile_image[0].originalname;   //img Check..
+        else throw "이미지가 변경되지 않았습니다.";
+
+        await findUser(bodyData)            // 유저를 확인한다
+        await changeUserImage(bodyData)     // 이미지 추가..!
+        .then(
+            ()=>{
+                res.status(200).json( {
+                    "message": "성공하였습니다."
+                })
+            }
+        )
+
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
+    }
+}
+
+async function modifyRestoreEmMan(req: Request, res: Response) {
+    let bodyData: emergencyManDto = {
+        "kakaoId": req.body.id,
+        "uuid": req.body.uuid,
+        "token": req.body.token
+    }
+
+    try{
+        console.log(bodyData)
+        await findUser(bodyData)            // 유저를 확인한다
+        await restoreUser(bodyData)         // UUID, TOKEN 수정!
         .then(
             ()=>{
                 res.status(200).json( {
@@ -101,5 +150,7 @@ export {
     addSchedule,
     findSchedule,
     findLogs,
-    createEmMan
+    createEmMan,
+    modifyImageEmMan,
+    modifyRestoreEmMan
 }

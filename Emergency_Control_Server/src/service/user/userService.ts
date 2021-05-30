@@ -11,22 +11,63 @@ async function check_log(scheduleIds : Array<number>) {
         // return 1; //로그 저장 성공
     } catch (errMsg) {
         logger.error({
-            label: "[userService.ts - check_log]",
+            label: "[userService.ts(EM Man) - check_log]",
             message: `\n\t└ err : ${errMsg}`
         })
         throw errMsg;
     }
 }
 
-//create user
+//create user(EM_MAN)
 async function createUser(bodyData : emergencyManDto) {
     try {
         const emr = new emergencyManRepo;
         return await emr.createEmergencyMan(bodyData)
-        // return 1; //로그 저장 성공
     } catch (errMsg) {
         logger.error({
-            label: "[userService.ts - createUser]",
+            label: "[userService.ts(EM Man) - createUser]",
+            message: `\n\t└ err : ${errMsg}`
+        })
+        throw errMsg;
+    }
+}
+
+//find user(EM_MAN)
+async function findUser(bodyData : emergencyManDto) {
+    try {
+        const emr = new emergencyManRepo;
+        return await emr.findUserFlag(bodyData.kakaoId) //flag로 찾기
+    } catch (errMsg) {
+        logger.error({
+            label: "[userService.ts(EM Man) - findUser]",
+            message: `\n\t└ err : ${errMsg}`
+        })
+        throw errMsg;
+    }
+}
+
+//이미지 수정하기! (EM_MAN)
+async function changeUserImage(bodyData : emergencyManDto) {
+    try {
+        const emr = new emergencyManRepo;
+        return await emr.updateUserImage(bodyData) //flag로 찾기
+    } catch (errMsg) {
+        logger.error({
+            label: "[userService.ts(EM Man) - changeUserImage]",
+            message: `\n\t└ err : ${errMsg}`
+        })
+        throw errMsg;
+    }
+}
+
+// UUID, TOKEN 수정하기! (EM_MAN)
+async function restoreUser(bodyData : emergencyManDto) {
+    try {
+        const emr = new emergencyManRepo;
+        return await emr.restoreUserUuidToken(bodyData)
+    } catch (errMsg) {
+        logger.error({
+            label: "[userService.ts(EM Man) - restoreUser]",
             message: `\n\t└ err : ${errMsg}`
         })
         throw errMsg;
@@ -34,5 +75,8 @@ async function createUser(bodyData : emergencyManDto) {
 }
 export {
     check_log,
-    createUser
+    createUser,
+    findUser,
+    changeUserImage,
+    restoreUser
 }
