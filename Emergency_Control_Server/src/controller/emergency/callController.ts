@@ -39,6 +39,8 @@ async function callMain(req: Request, res: Response) {
             else break; //찾은경우 while문 탈출
         }
 
+        
+
         let schedule_data : any = await search_schedule(fireStationId)    //Token 찾기
         sendPushMessageIndividual(
             `${bodyData.state}환자 발생!!`,

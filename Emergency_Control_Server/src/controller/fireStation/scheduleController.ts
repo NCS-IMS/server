@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import { add_schedule, select_schedule} from "../../service/firestation/manageScheduleService";
 import { check_log, createUser, findUser, changeUserImage, restoreUser } from "../../service/user/userService";
+import { find_publicInstitutions } from "../../service/apis/findLocation";
 import { manageScheduleDto } from "../../interface/manageScheduleDto";
 import { emergencyManDto } from "../../interface/emergencyManDto";
+import { callLogDto } from "../../interface/callLogDto";
 
 async function addSchedule(req: Request, res: Response) {
     // manageScheduleService.select_schedule()
@@ -146,11 +148,47 @@ async function modifyRestoreEmMan(req: Request, res: Response) {
     }
 }
 
+
+async function findFirestation(req: Request, res: Response) {
+    let bodyData: any = {
+        longitude : req.body.x,
+        latitude: req.body.y,
+    };
+    try{
+        //'공공기관' 안에서 소방서 찾기
+        let pageCount = 1;      // API 상으로 체크할 Page Number
+        let fireStations: Array<object> = [];
+
+        while (pageCount<5) {  // 최대 5페이지까지 찾기 
+            let resultData: any = await find_publicInstitutions(bodyData, pageCount)    //API찾기
+            // console.log(resultData)
+            for (let key in resultData.documents) { //찾은 Data 안에서 소방서 값 찾기
+                let tmp = resultData.documents[key].category_name.split(' > ')[2];
+                if (tmp == "소방서") {  //있는경우 ARRAY에 PUSH함.
+                    fireStations.push(resultData.documents[key])    //ID값 추출
+                    break;  //For문 탈출
+                }
+            }
+            pageCount++;
+        }
+        res.status(200).json( {
+            "message": "성공하였습니다.",
+            "result": fireStations
+        })
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
+    }
+}
+
+
+
+
 export {
     addSchedule,
     findSchedule,
     findLogs,
     createEmMan,
     modifyImageEmMan,
-    modifyRestoreEmMan
+    modifyRestoreEmMan,
+    findFirestation
 }
