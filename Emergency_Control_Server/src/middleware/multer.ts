@@ -1,12 +1,13 @@
-import { logger } from "../config/logger";
+// import { logger } from "../config/logger";
 var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function (req : Request, file : any, cb : any) {
       cb(null, 'public/upload/')
     },
-    filename: function (req : Request, file : any, cb : any) {
-      cb(null, file.originalname) 
+    filename: function (req : any, file : any, cb : any) {
+      cb(null, `${req.body.kakaoId}.${file.mimetype.split('/')[1]}`) 
+      // cb(null, file.originalname) 
     }
   })
 

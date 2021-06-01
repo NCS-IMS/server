@@ -70,9 +70,8 @@ async function findLogs(req: Request, res: Response) {
 }
 
 async function createEmMan(req: Request, res: Response) {
-    let files : any = req.files;
     let bodyData: emergencyManDto = {
-        "kakaoId": req.body.id,
+        "kakaoId": req.body.kakaoId,
         "name": req.body.name,
         "gender": req.body.gender,
         "email": req.body.email,
@@ -84,7 +83,17 @@ async function createEmMan(req: Request, res: Response) {
         "fireStationId": req.body.firestationId,
         "uuid": req.body.uuid
     }
-    if(files.profile_image!=undefined) bodyData.imgSrc= files.profile_image[0].originalname   //img Check..
+    
+
+    var upload = require('../../middleware/multer');
+    upload.fields([{name:'profile_image', maxCount:1}]);
+
+    let files : any = req.files;
+    if(files!=undefined){
+        //files.profile_image[0].originalname   //img Check..
+        bodyData.imgSrc=`${req.body.id}.${files.profile_image[0].mimetype.split('/')[1]}`
+    }
+    // else console.log("F")
     try{
         await createUser(bodyData)
         .then(
@@ -101,13 +110,13 @@ async function createEmMan(req: Request, res: Response) {
 
 async function modifyImageEmMan(req: Request, res: Response) {
     let bodyData: emergencyManDto = {
-        "kakaoId": req.body.id
+        "kakaoId": req.body.kakaoId
     }
     let files : any = req.files;
 
     try{
         // 이미지 확인을 먼저.
-        if(files.profile_image!=undefined) bodyData.imgSrc= files.profile_image[0].originalname;   //img Check..
+        if(files!=undefined) bodyData.imgSrc= req.body.id//files.profile_image[0].originalname;   //img Check..
         else throw "이미지가 변경되지 않았습니다.";
 
         await findUser(bodyData)            // 유저를 확인한다
@@ -127,7 +136,7 @@ async function modifyImageEmMan(req: Request, res: Response) {
 
 async function modifyRestoreEmMan(req: Request, res: Response) {
     let bodyData: emergencyManDto = {
-        "kakaoId": req.body.id,
+        "kakaoId": req.body.kakaoId,
         "uuid": req.body.uuid,
         "token": req.body.token
     }

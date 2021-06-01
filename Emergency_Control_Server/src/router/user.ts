@@ -13,14 +13,10 @@ router.post(
     createEmMan
 )
 
-router.post(
-    '/modify/image',
-    upload.fields([{name:'profile_image', maxCount:1}]),
-    modifyImageEmMan
-)
+router.post('/modify/image',modifyImageEmMan)
 
 // 앱 재설치 시 UUID와 Token 갱신을 위한 수정
-router.post( '/modify/restore', modifyRestoreEmMan )
+router.post('/modify/restore', modifyRestoreEmMan )
 // guestBookRouter.get('/main', guestBookMain)
 
 // 회원가입 시 Firestation 확인
