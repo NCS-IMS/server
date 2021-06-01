@@ -36,7 +36,9 @@ async function createUser(bodyData : emergencyManDto) {
 async function findUser(bodyData : emergencyManDto) {
     try {
         const emr = new emergencyManRepo;
-        return await emr.findUserFlag(bodyData.kakaoId) //flag로 찾기
+        let result: any = await emr.findUserFlag(bodyData.kakaoId);
+        if(result.length) return result;                //결과값이 있다면 결과 제출
+        else throw `해당하는 유저${bodyData.kakaoId}가 존재하지 않습니다.`;    // 없다면 에러 발생
     } catch (errMsg) {
         logger.error({
             label: "[userService.ts(EM Man) - findUser]",
@@ -73,10 +75,26 @@ async function restoreUser(bodyData : emergencyManDto) {
         throw errMsg;
     }
 }
+
+// FireStation ID 변경 
+async function changeFireStationId(bodyData : emergencyManDto) {
+    try {
+        const emr = new emergencyManRepo;
+        return await emr.modifyFID(bodyData)
+    } catch (errMsg) {
+        logger.error({
+            label: "[userService.ts(EM Man) - changeFireStationId]",
+            message: `\n\t└ err : ${errMsg}`
+        })
+        throw errMsg;
+    }
+}
+
 export {
     check_log,
     createUser,
     findUser,
     changeUserImage,
-    restoreUser
+    restoreUser,
+    changeFireStationId
 }

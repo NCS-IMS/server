@@ -28,7 +28,7 @@ export class emergencyManRepo extends Repository<Emergency_Man> {
         .execute();
     }
     
-    //user Image SRC 수정
+    // user Image SRC 수정
     updateUserImage(bodyData: emergencyManDto) {
         return getRepository(Emergency_Man)
         .createQueryBuilder()
@@ -38,7 +38,7 @@ export class emergencyManRepo extends Repository<Emergency_Man> {
         .execute();
     }
 
-    //user UUID / Token 수정
+    // user UUID / Token 수정
     restoreUserUuidToken(bodyData: emergencyManDto) {
         return getRepository(Emergency_Man)
         .createQueryBuilder()
@@ -51,4 +51,13 @@ export class emergencyManRepo extends Repository<Emergency_Man> {
         .execute();
     }
     
+    // firestation id 수정
+    modifyFID(bodyData: emergencyManDto) {
+        return getRepository(Emergency_Man)
+        .createQueryBuilder()
+        .update(Emergency_Man)
+        .set({ fireStationId:bodyData.fireStationId })
+        .where("kakaoId = :id", { id: bodyData.kakaoId })
+        .execute();
+    }
 }
