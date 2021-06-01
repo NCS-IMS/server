@@ -6,7 +6,12 @@ var storage = multer.diskStorage({
       cb(null, 'public/upload/')
     },
     filename: function (req : any, file : any, cb : any) {
-      cb(null, `${req.body.kakaoId}.${file.mimetype.split('/')[1]}`) 
+      let imgName :any = ''
+
+      //이미지 존재 시 kakaoid.imageType 형식으로 지정
+      if(file.mimetype.split('/')[1] != undefined) imgName = `${req.body.kakaoId}.${file.mimetype.split('/')[1]}`
+      else imgName = undefined; //이미지 없을 시 null 할당
+      cb(null, imgName) 
       // cb(null, file.originalname) 
     }
   })

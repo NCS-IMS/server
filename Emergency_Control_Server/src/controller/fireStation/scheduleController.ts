@@ -89,7 +89,7 @@ async function createEmMan(req: Request, res: Response) {
     upload.fields([{name:'profile_image', maxCount:1}]);
 
     let files : any = req.files;
-    if(files!=undefined){
+    if(files['profile_image']!=undefined){
         //files.profile_image[0].originalname   //img Check..
         bodyData.imgSrc=`${req.body.id}.${files.profile_image[0].mimetype.split('/')[1]}`
     }
