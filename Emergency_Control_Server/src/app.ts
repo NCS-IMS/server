@@ -34,7 +34,7 @@ createConnection()
 
 app.use("/emergency", emergencyCallRouter);
 app.use("/schedule", scheduleRouter);
-app.use("/user", userRouter);
+app.use("/user", userRouter, express.static('public/upload'));
 app.use("/test", testRouter);
 
 app.listen(process.env.EMERGENCY_SERVER_PORT, ()=>{

@@ -85,10 +85,11 @@ async function createEmMan(req: Request, res: Response) {
     }
 
     let files : any = req.files;
-    if(files!=undefined){
+    if(files !=undefined && files.profile_image!=undefined){
         //files.profile_image[0].originalname   //img Check..
         bodyData.imgSrc=`${req.body.kakaoId}.${files.profile_image[0].mimetype.split('/')[1]}`
     }
+    console.log(bodyData)
     // else console.log("F")
     try{
         await createUser(bodyData)
@@ -112,7 +113,7 @@ async function modifyImageEmMan(req: Request, res: Response) {
     let files : any = req.files;
     try{
         // 이미지 확인을 먼저.
-        if(files!=undefined){  //files['profile_image']!=undefined
+        if(files !=undefined && files.profile_image!=undefined){  //files['profile_image']!=undefined
             //files.profile_image[0].originalname   //img Check..
             bodyData.imgSrc=`${req.body.kakaoId}.${files.profile_image[0].mimetype.split('/')[1]}`
         }
