@@ -113,10 +113,11 @@ async function updateDoor(bodyData: doorDto) {
   const dr = new doorRepo;
   try {
     const findResult = await dr.findDoor(bodyData);
-    console.log(findResult)
       if (await findResult[0].id != undefined) {
         const br = new breakerRepo;
-        await br.updateBreakerCarNum(findResult[0].breakerId, bodyData.car_num )
+        const oldNum = await br.checkBreakerCarNum(findResult[0].breakerId);
+        let cNum = `${oldNum[0].car_num},${bodyData.car_num}`;
+        await br.updateBreakerCarNum(findResult[0].breakerId, cNum )
         return "성공하였습니다"; //APP단 TEST용도로 추가함.
       }
       else{

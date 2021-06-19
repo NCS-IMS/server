@@ -8,7 +8,7 @@ export class Breaker{
     id: number;
     
     @Column({
-        length: 9,
+        length: 256,
         comment: '구급차의 차 번호'
     })
     car_num: string;

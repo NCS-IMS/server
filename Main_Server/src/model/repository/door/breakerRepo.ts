@@ -4,6 +4,14 @@ import { Breaker } from "../../entity/Breaker";
 
 @EntityRepository(Breaker)
 export class breakerRepo extends Repository<Breaker> {
+    //door 정보 수정
+    checkBreakerCarNum(id: number) {
+        return getRepository(Breaker)
+        .createQueryBuilder()
+        .select("car_num")
+        .where("id = :doorId", { doorId: id })
+        .execute();
+    }
 
     //door 정보 수정
     updateBreakerCarNum(id: number, car_num: string) {
