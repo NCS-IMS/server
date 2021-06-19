@@ -2,6 +2,7 @@ import {Request, Response, NextFunction} from 'express'
 import * as userService from "../../service/user/userService";
 import { logger } from "../../config/logger";
 import { userDto } from "../../interface/userDto";
+import { doorDto } from "../../interface/doorDto";
 
 //Create User
 function createUser(req:Request, res:Response){
@@ -246,10 +247,35 @@ function deleteUserFlag(req:Request, res:Response){
     //         }
     //     )//end catch
 }
+
+function addDoor(req:Request, res:Response){
+    let bodyData : doorDto ={
+        "doorId": req.body.doorId,
+        "uuid": req.body.uuid,
+        // "door": {"id": req.body.doorId}
+        // "user": {"email": req.body.userEmail},
+        // "board_groups": {"group_id": req.body.group_id}
+    }
+
+    userService.updateDoor(bodyData)
+    .then(
+        (result: any)=>{
+            res.status(200).json({
+                "message": result
+            })
+        }
+    )//end then
+    .catch(
+        (errMsg: any)=>{
+            res.status(202).json({ "message": errMsg })
+        }
+    )//end catch
+}
 export{
     createUser,
     findAllUser,
     findOneUser,
     updateUser,
     deleteUserFlag,
+    addDoor
 }

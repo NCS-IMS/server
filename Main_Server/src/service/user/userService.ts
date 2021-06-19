@@ -1,5 +1,7 @@
 import { userRepo } from "../../model/repository/user/userRepo";
+import { doorRepo } from "../../model/repository/door/doorRepo";
 import { userDto } from "../../interface/userDto";
+import { doorDto } from "../../interface/doorDto";
 import { logger } from "../../config/logger";
 
 //USER CREATE
@@ -104,10 +106,27 @@ async function deleteUserFlag(kakaoId: string, flag: number) {
   }
 }
 
+
+//USER Update
+async function updateDoor(bodyData: doorDto) {
+  const dr = new doorRepo;
+  try {
+      return await dr.updateDoorUuid(bodyData);
+  } catch (errMsg) {
+    logger.error({
+      label: "[userService.ts - update_user]",
+      message: `\n\t└ query : ${errMsg.query} \n\t└ input data(form) : ${errMsg.parameters} \n\t└ err : ${errMsg} `
+    })
+    throw errMsg;
+  }
+}
+
+
 export {
   create_user,
   find_user,
   find_user_detail,
   update_user,
-  deleteUserFlag
+  deleteUserFlag,
+  updateDoor
 }

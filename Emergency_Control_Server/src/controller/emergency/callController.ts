@@ -3,10 +3,11 @@ import { write_log, search_schedule } from "../../service/emergency/callService"
 import { find_emergencyRoom, find_publicInstitutions, find_userLocation } from "../../service/apis/findLocation";
 import { sendPushMessageIndividual } from "../../middleware/sendPushMessage";
 import { callLogDto } from "../../interface/callLogDto";
+import { userDoorDto } from "../../interface/userDoorDto";
 
 async function callMain(req: Request, res: Response) {
     try {
-        let bodyData: callLogDto = {
+        const bodyData: callLogDto = {
             "kakaoId": req.body.kakaoId,
             "state": req.body.state,
             "isSelf": req.body.is_self,
@@ -15,6 +16,7 @@ async function callMain(req: Request, res: Response) {
             "userAddr": req.body.user_addr,
             "anamnesis": req.body.anamnesis,
             "medicine": req.body.medicine,
+            "door": {"id": req.body.doorId}
         }
 
         let userLocation: any = await find_userLocation(bodyData);  //환자 위치 정보 확인
@@ -37,11 +39,23 @@ async function callMain(req: Request, res: Response) {
             }
             if (!fireStationFlag) pageCount++;    //못 찾은경우 ++
             else break; //찾은경우 while문 탈출
+        }        
+
+    //door 처리를 위한 포매팅
+    let doorData: userDoorDto;
+    // Door 에 UUID 등록
+    if(req.body.doorId != "" && req.body.doorId != undefined) {
+        doorData = {
+            "kakaoId": req.body.kakaoId,
+            "doorId": req.body.doorId
         }
+    }else{
+        doorData = {
+            "doorId": 0
+        }
+    }
 
-        
-
-        let schedule_data : any = await search_schedule(fireStationId)    //Token 찾기
+        let schedule_data : any = await search_schedule(fireStationId, doorData)    //Token 찾기
         sendPushMessageIndividual(
             `${bodyData.state}환자 발생!!`,
             `${userLocation.documents[0].address.address_name}에 응급상황이 발생하였습니다.`,

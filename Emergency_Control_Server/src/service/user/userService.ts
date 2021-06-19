@@ -1,7 +1,9 @@
 import { callLogRepo } from "../../model/repository/emergency/callLogRepo";
 import { emergencyManRepo } from "../../model/repository/firestation/emergencyManRepo";
 import { emergencyManDto } from "../../interface/emergencyManDto";
+import { userDoorDto } from "../../interface/userDoorDto";
 import { logger } from "../../config/logger";
+import requestModule from "../../middleware/request"
 
 //Log read
 async function check_log(scheduleIds : Array<number>) {
@@ -90,11 +92,26 @@ async function changeFireStationId(bodyData : emergencyManDto) {
     }
 }
 
+// UUID, TOKEN 수정하기! (EM_MAN)
+async function addDoorUuid(bodyData : userDoorDto) {
+    try {
+        let parseUrl = `http://localhost:43042/user/add/door`
+        return requestModule(parseUrl, 'POST', 'etc', bodyData)
+    } catch (errMsg) {
+        logger.error({
+            label: "[userService.ts(EM Man) - addDoorUuid]",
+            message: `\n\t└ err : ${errMsg}`
+        })
+        throw errMsg;
+    }
+}
+
 export {
     check_log,
     createUser,
     findUser,
     changeUserImage,
     restoreUser,
-    changeFireStationId
+    changeFireStationId,
+    addDoorUuid
 }

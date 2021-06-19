@@ -15,10 +15,10 @@ export class Door{
     beacon_useable: boolean;
 
     @Column({
-        length: 20,
+        length: 512,
         comment: 'MAC 주소'
     })
-    mac_addr: string;
+    UUID: string;
 
     @CreateDateColumn()
     createDate: Date;

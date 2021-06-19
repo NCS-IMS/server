@@ -13,4 +13,5 @@ export interface callLogDto{
     anamnesis?:string;  //병력
     em_schedule?: object;   //emscheduleid
     emAddr?:string;
+    door?: object;
 }

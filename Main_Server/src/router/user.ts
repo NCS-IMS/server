@@ -26,6 +26,8 @@ router.patch('/update',userController.updateUser)
 router.delete('/delete', userController.deleteUserFlag)
 
 
+router.post('/add/door', userController.addDoor)
+
 // guestBookRouter.get('/main', guestBookMain)
 
 export default router;

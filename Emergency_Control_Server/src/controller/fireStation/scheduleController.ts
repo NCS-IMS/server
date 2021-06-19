@@ -89,7 +89,6 @@ async function createEmMan(req: Request, res: Response) {
         //files.profile_image[0].originalname   //img Check..
         bodyData.imgSrc=`${req.body.kakaoId}.${files.profile_image[0].mimetype.split('/')[1]}`
     }
-    console.log(bodyData)
     // else console.log("F")
     try{
         await createUser(bodyData)
@@ -158,8 +157,8 @@ async function modifyRestoreEmMan(req: Request, res: Response) {
 
 async function findFirestation(req: Request, res: Response) {
     let bodyData: any = {
-        longitude : req.body.x,
-        latitude: req.body.y,
+        longitude : req.query.x,
+        latitude: req.query.y,
     };
     try{
         //'공공기관' 안에서 소방서 찾기

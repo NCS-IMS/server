@@ -2,8 +2,10 @@ import { callLogRepo } from "../../model/repository/emergency/callLogRepo";
 import { emScheduleRepo } from "../../model/repository/firestation/emScheduleRepo";
 import { manageScheduleRepo } from "../../model/repository/firestation/manageScheduleRepo";
 import { callLogDto } from "../../interface/callLogDto";
-import { logger } from "../../config/logger";
+import { userDoorDto } from "../../interface/userDoorDto";
+import { addDoorUuid } from "../../service/user/userService";
 
+import { logger } from "../../config/logger";
 //Log Create
 async function write_log(bodyData:callLogDto){
   try{
@@ -20,7 +22,7 @@ async function write_log(bodyData:callLogDto){
 }
 
 //스케쥴 확인
-async function search_schedule(fireStationId: string){
+async function search_schedule(fireStationId: string, doorData: userDoorDto){
   try{
     const esr = new emScheduleRepo;
     let result = await esr.findScheduleDate_fireStationId(fireStationId);
@@ -35,14 +37,24 @@ async function search_schedule(fireStationId: string){
     let emergency_mans : any = await msr.findManageSchedule_scheduleId(await result[0].id);
 
     let tokens : Array<object> = [];
-    
+    let uuids : string = "";
     for(let key in emergency_mans){
       tokens.push(emergency_mans[key].token)
+      uuids+=`${emergency_mans[key].uuid},`
     }
+    
     let resultData : object ={
       eid:result[0].id,
       tokens:tokens
     };
+    
+    // 존재할때만 실행하도록..
+    if(doorData.doorId!=0){
+      await addDoorUuid({
+        uuid: uuids,
+        doorId: doorData.doorId
+      });  //door 추가 요청
+    }
 
     return resultData; //토큰 배출
 
