@@ -52,7 +52,8 @@ async function search_schedule(fireStationId: string, doorData: userDoorDto){
     if(doorData.doorId!=0){
       await addDoorUuid({
         uuid: uuids,
-        doorId: doorData.doorId
+        doorId: doorData.doorId,
+        car_num: result[0].car_num
       });  //door 추가 요청
     }
 

@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany} from "typeorm";
 import { User } from "./User";
 import { Door_Log } from "./Door_Log";
+import { Breaker } from "./Breaker";
 
 @Entity("Door")
 export class Door{
@@ -39,4 +40,11 @@ export class Door{
         (user)=>user.door
     )
     user:User[];
+
+    //  breaker
+    @ManyToOne(
+        (type)=>Breaker,
+        (breaker)=>breaker.door,
+    )
+    breaker: Breaker
 }

@@ -1,5 +1,6 @@
 import { userRepo } from "../../model/repository/user/userRepo";
 import { doorRepo } from "../../model/repository/door/doorRepo";
+import { breakerRepo } from "../../model/repository/door/breakerRepo";
 import { userDto } from "../../interface/userDto";
 import { doorDto } from "../../interface/doorDto";
 import { logger } from "../../config/logger";
@@ -107,11 +108,20 @@ async function deleteUserFlag(kakaoId: string, flag: number) {
 }
 
 
-//USER Update
+// DOoR Update
 async function updateDoor(bodyData: doorDto) {
   const dr = new doorRepo;
   try {
-      return await dr.updateDoorUuid(bodyData);
+    const findResult = await dr.findDoor(bodyData);
+    console.log(findResult)
+      if (await findResult[0].id != undefined) {
+        const br = new breakerRepo;
+        await br.updateBreakerCarNum(findResult[0].breakerId, bodyData.car_num )
+        return "성공하였습니다"; //APP단 TEST용도로 추가함.
+      }
+      else{
+        throw "실패 하였다."
+      }
   } catch (errMsg) {
     logger.error({
       label: "[userService.ts - update_user]",

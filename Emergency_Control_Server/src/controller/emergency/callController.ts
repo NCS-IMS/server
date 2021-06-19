@@ -39,21 +39,21 @@ async function callMain(req: Request, res: Response) {
             }
             if (!fireStationFlag) pageCount++;    //못 찾은경우 ++
             else break; //찾은경우 while문 탈출
-        }        
+        }
 
-    //door 처리를 위한 포매팅
-    let doorData: userDoorDto;
-    // Door 에 UUID 등록
-    if(req.body.doorId != "" && req.body.doorId != undefined) {
-        doorData = {
-            "kakaoId": req.body.kakaoId,
-            "doorId": req.body.doorId
+        //door 처리를 위한 포매팅
+        let doorData: userDoorDto;
+        // Door 에 UUID 등록
+        if(req.body.doorId != "" && req.body.doorId != undefined) {
+            doorData = {
+                "kakaoId": req.body.kakaoId,
+                "doorId": req.body.doorId
+            }
+        }else{
+            doorData = {
+                "doorId": 0
+            }
         }
-    }else{
-        doorData = {
-            "doorId": 0
-        }
-    }
 
         let schedule_data : any = await search_schedule(fireStationId, doorData)    //Token 찾기
         sendPushMessageIndividual(

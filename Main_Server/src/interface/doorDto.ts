@@ -3,4 +3,5 @@ export interface doorDto{
     kakaoId?: string;
     uuid: string;
     doorId?: number;
+    car_num: string;
 }

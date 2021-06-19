@@ -252,11 +252,11 @@ function addDoor(req:Request, res:Response){
     let bodyData : doorDto ={
         "doorId": req.body.doorId,
         "uuid": req.body.uuid,
+        "car_num": req.body.car_num
         // "door": {"id": req.body.doorId}
         // "user": {"email": req.body.userEmail},
         // "board_groups": {"group_id": req.body.group_id}
     }
-
     userService.updateDoor(bodyData)
     .then(
         (result: any)=>{
