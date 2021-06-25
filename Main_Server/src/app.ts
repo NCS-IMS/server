@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import userRouter from "./router/user";
 import proxyFrontRouter from "./router/proxyFront";
 import findDirectionRouter from "./router/findDirection";
+import nuguRouter from "./router/nugu";
 import { createConnection } from 'typeorm';
 
 const app = express()
@@ -37,6 +38,7 @@ createConnection()
 app.use("/user", userRouter);
 // app.use("/proxy", proxyFrontRouter);
 app.use("/find", findDirectionRouter);
+app.use("/nugu", nuguRouter);
 
 app.listen(process.env.MAIN_SERVER_PORT, ()=>{
     console.log("Main Server Start:",process.env.MAIN_SERVER_PORT)

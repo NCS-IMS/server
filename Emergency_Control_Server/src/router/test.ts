@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from 'express'
 import request from 'request';
 import express from 'express'
 const router = express.Router();
-
+import  mqtt  from "mqtt";
 router.post('/', (req: Request, res: Response)=>{
     let bodyData : any = {
         group_cord: "HP8",

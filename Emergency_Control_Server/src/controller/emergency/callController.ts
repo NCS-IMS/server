@@ -49,6 +49,7 @@ async function callMain(req: Request, res: Response) {
                 "kakaoId": req.body.kakaoId,
                 "doorId": req.body.doorId
             }
+            
         }else{
             doorData = {
                 "doorId": 0
@@ -56,6 +57,7 @@ async function callMain(req: Request, res: Response) {
         }
 
         let schedule_data : any = await search_schedule(fireStationId, doorData)    //Token 찾기
+       
         sendPushMessageIndividual(
             `${bodyData.state}환자 발생!!`,
             `${userLocation.documents[0].address.address_name}에 응급상황이 발생하였습니다.`,
@@ -70,7 +72,6 @@ async function callMain(req: Request, res: Response) {
         if(req.body.user_addr != undefined) bodyData.userAddr = req.body.user_addr
         bodyData.emAddr = userLocation.documents[0].address.address_name
         await write_log(bodyData)       //로그 저장
-
         await find_emergencyRoom(bodyData)   //병원 찾기
         .then(
             (result:any)=>{

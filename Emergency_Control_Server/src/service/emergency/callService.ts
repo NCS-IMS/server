@@ -6,6 +6,9 @@ import { userDoorDto } from "../../interface/userDoorDto";
 import { addDoorUuid } from "../../service/user/userService";
 
 import { logger } from "../../config/logger";
+/*import  mqtt  from "mqtt";
+var client  = mqtt.connect('mqtt://broker.mqtt-dashboard.com')*/
+
 //Log Create
 async function write_log(bodyData:callLogDto){
   try{
@@ -27,7 +30,7 @@ async function search_schedule(fireStationId: string, doorData: userDoorDto){
     const esr = new emScheduleRepo;
     let result = await esr.findScheduleDate_fireStationId(fireStationId);
     //필요 시 정/부에 따라 다음 응급대기조가 가게끔 하는 코드 추가
-
+   
     //데이터가 없을 때
     if(!result.length) throw "데이터가 존재하지 않습니다."
 
@@ -35,14 +38,14 @@ async function search_schedule(fireStationId: string, doorData: userDoorDto){
     const msr = new manageScheduleRepo;
     //스케쥴 ID에 배정되어있는 Emergency Man 찾기
     let emergency_mans : any = await msr.findManageSchedule_scheduleId(await result[0].id);
-
+    //console.log(emergency_mans);
     let tokens : Array<object> = [];
     let uuids : string = "";
     for(let key in emergency_mans){
       tokens.push(emergency_mans[key].token)
       uuids+=`${emergency_mans[key].uuid},`
+      
     }
-    
     let resultData : object ={
       eid:result[0].id,
       tokens:tokens
@@ -55,6 +58,7 @@ async function search_schedule(fireStationId: string, doorData: userDoorDto){
         doorId: doorData.doorId,
         car_num: result[0].car_num
       });  //door 추가 요청
+
     }
 
     return resultData; //토큰 배출
