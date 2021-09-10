@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { add_schedule, changeFlags, select_schedule_date, create_schedule, select_schedule, select_scheduleByCarNum, select_schedule_all} from "../../service/firestation/manageScheduleService";
 import { check_log, createUser, findUser, changeUserImage, restoreUser, changeFireStationId } from "../../service/user/userService";
-import { find_publicInstitutions } from "../../service/apis/findLocation";
+import { find_emergencyRoom, find_publicInstitutions } from "../../service/apis/findLocation";
 import { manageScheduleDto } from "../../interface/manageScheduleDto";
 import { find_uuid } from "../../service/emergency/callService";
 import { emergencyManDto } from "../../interface/emergencyManDto";
@@ -98,11 +98,18 @@ async function findLogOne(req: Request, res: Response) {
                 for(let key in result){
                     scheduleIds.push(result[key].id)
                 }
-                var schedulelog = await check_log(scheduleIds)
+                var schedulelog: any = await check_log(scheduleIds)
+                const bodyData = {
+                    latitude: schedulelog.latitude,
+                    longitude: schedulelog.longitude
+                }
+                
+                const findEM: any = await find_emergencyRoom(bodyData);
+
                 if(schedulelog != undefined){
                     res.status(200).json( {
                         "message": "성공하였습니다.",
-                        "result": schedulelog
+                        "result": {schedulelog, findEM}
                     })
                 }else{
                     res.status(202).json( {

@@ -52,7 +52,7 @@ async function find_publicInstitutions(bodyData: callLogDto, pageCount: number) 
 }
 
 //응급실 위치 찾기
-async function find_emergencyRoom(bodyData: callLogDto) {
+async function find_emergencyRoom(bodyData: any) {
   try {
     let group_cord: string = "HP8"; //병원
     let radius: number = 20000;     //범위
