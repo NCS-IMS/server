@@ -160,11 +160,28 @@ async function select_schedule_date(startDate: string) {
   }
 }
 
+async function changeFlags(logId: string) {
+  try {
+    const lr = new logRepo;
+    await lr.changeFlag(logId)  //EMM이 있는지 확인
+    return 1;
+  
+  }catch (errMsg){
+
+    logger.error({
+      label: "[manageScheduleService.ts - changeFlag]",
+      message: `\n\t└ err : ${errMsg}`
+    })
+    throw errMsg;
+
+  }
+}
 export {
   add_schedule,
   select_schedule,
   select_schedule_all,
   select_scheduleByCarNum,
   create_schedule,
-  select_schedule_date
+  select_schedule_date,
+  changeFlags
 }

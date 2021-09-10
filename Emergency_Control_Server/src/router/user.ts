@@ -5,7 +5,8 @@ import {
     modifyImageEmMan, 
     modifyRestoreEmMan, 
     findFirestation, 
-    modifyFireStationIdEmMan
+    modifyFireStationIdEmMan,
+    changeFlag
  } from '../controller/fireStation/scheduleController';
 
 import express from 'express'
@@ -14,6 +15,8 @@ const router = express.Router();
 router.get('/log/all', findLogAll)
 
 router.post('/log/one', findLogOne)
+
+router.post('/log/change/flag', changeFlag)
 
 //module Exports
 var upload = require('../middleware/multer');

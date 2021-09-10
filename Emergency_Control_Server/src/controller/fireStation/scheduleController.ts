@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { add_schedule, select_schedule_date, create_schedule, select_schedule, select_scheduleByCarNum, select_schedule_all} from "../../service/firestation/manageScheduleService";
+import { add_schedule, changeFlags, select_schedule_date, create_schedule, select_schedule, select_scheduleByCarNum, select_schedule_all} from "../../service/firestation/manageScheduleService";
 import { check_log, createUser, findUser, changeUserImage, restoreUser, changeFireStationId } from "../../service/user/userService";
 import { find_publicInstitutions } from "../../service/apis/findLocation";
 import { manageScheduleDto } from "../../interface/manageScheduleDto";
@@ -301,6 +301,23 @@ async function findScheduleAll(req: Request, res: Response) {
     }
 }
 
+async function changeFlag(req: Request, res: Response) {
+    const logId:any = req.body.logId;
+
+    try{
+        await changeFlags(logId)
+        .then(
+            ()=>{
+                res.status(200).json( {
+                    "message": "성공하였습니다.",
+                }) 
+            }
+        )
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
+    }
+}
+
 export {
     addSchedule,
     createSchedule,
@@ -313,5 +330,6 @@ export {
     modifyFireStationIdEmMan,
     findScheduleByCarNum,
     findLogAll,
-    findScheduleAll
+    findScheduleAll,
+    changeFlag
 }

@@ -9,6 +9,7 @@ router.post('/create', scheduleController.createSchedule)
 router.post('/add', scheduleController.addSchedule)
 
 router.post('/find/one', scheduleController.findSchedule)
+
 router.get('/find/all', scheduleController.findScheduleAll)
 
 router.post('/find/carNum', scheduleController.findScheduleByCarNum)

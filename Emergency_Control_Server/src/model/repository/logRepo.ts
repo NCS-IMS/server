@@ -25,4 +25,13 @@ export class logRepo extends Repository<Call_Log> {
             .where("flag = :flag", { flag: flag })
             .execute();
     }
+
+    changeFlag(logId: any) {
+        return getRepository(Call_Log)
+        .createQueryBuilder()
+        .update(Call_Log)
+        .set({flag:true})
+        .where("id = :logId", { logId: logId })
+        .execute();
+    }
 }
