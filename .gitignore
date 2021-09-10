@@ -1,0 +1,15 @@
+# ALL of Server
+log
+node_modules
+.env
+ncs-ims-firebase-adminsdk-f2ws7-080cafd303.json
+
+# Emergency Control Server
+Emergency_Control_Server/dist/
+Emergency_Control_Server/log/
+Emergency_Control_Server/node_modules/
+
+# Main Server
+Main_Server/dist/
+Main_Server/log/
+Main_Server/node_modules/
