@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { add_schedule, create_schedule, select_schedule, select_scheduleByCarNum, select_schedule_all} from "../../service/firestation/manageScheduleService";
+import { add_schedule, select_schedule_date, create_schedule, select_schedule, select_scheduleByCarNum, select_schedule_all} from "../../service/firestation/manageScheduleService";
 import { check_log, createUser, findUser, changeUserImage, restoreUser, changeFireStationId } from "../../service/user/userService";
 import { find_publicInstitutions } from "../../service/apis/findLocation";
 import { manageScheduleDto } from "../../interface/manageScheduleDto";
@@ -280,6 +280,27 @@ async function findLogAll(req: Request, res: Response) {
     }
 }
 
+async function findScheduleAll(req: Request, res: Response) {
+    let startDate: any = req.query.startDate;
+    if(startDate === '' || startDate === undefined) {
+        startDate = '';
+    }
+
+    try{
+        await select_schedule_date(startDate)
+        .then(
+            (result: any)=>{
+                res.status(200).json( {
+                    "message": "성공하였습니다.",
+                    "result": result
+                }) 
+            }
+        )
+    }catch(errMsg: any){
+        res.status(202).json( {"message": errMsg } )
+    }
+}
+
 export {
     addSchedule,
     createSchedule,
@@ -291,5 +312,6 @@ export {
     findFirestation,
     modifyFireStationIdEmMan,
     findScheduleByCarNum,
-    findLogAll
+    findLogAll,
+    findScheduleAll
 }

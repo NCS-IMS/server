@@ -6,6 +6,7 @@ import { emScheduleRepo } from "../../model/repository/firestation/emScheduleRep
 import { manageScheduleDto } from "../../interface/manageScheduleDto";
 import { logger } from "../../config/logger";
 import { setFlagsFromString } from "v8";
+import { restoreUser } from "../user/userService";
 
 //Schedule Create (Many to Many)
 async function add_schedule(bodyData: manageScheduleDto) {
@@ -132,10 +133,38 @@ async function select_schedule_all(inter:number, ski:number, flag: number) {
   }
 }
 
+//스케쥴 확인
+async function select_schedule_date(startDate: string) {
+  try {
+    const msr = new manageScheduleRepo;
+    if(startDate === '') {
+      return await msr.findAll();
+    } else{ 
+      return await msr.findSchedule(startDate)  //schedule이 있는지 확인
+      .then((result: any) => {
+        if (!result[0]) { //스케쥴을 찾을 수 없는 경우
+          throw `값이 없음.`
+         }
+         return result;
+      })
+    }
+  
+  }catch (errMsg){
+
+    logger.error({
+      label: "[manageScheduleService.ts - select_schedule_date]",
+      message: `\n\t└ err : ${errMsg}`
+    })
+    throw errMsg;
+
+  }
+}
+
 export {
   add_schedule,
   select_schedule,
   select_schedule_all,
   select_scheduleByCarNum,
-  create_schedule
+  create_schedule,
+  select_schedule_date
 }

@@ -7,6 +7,25 @@ import { EM_Schedule } from "../../entity/EM_Schedule";
 @EntityRepository(Emergency_Man)
 export class manageScheduleRepo extends Repository<Emergency_Man> {
 
+    async findAll() {
+        return getRepository(EM_Schedule).find();
+    }
+
+    async findSchedule(date: any) {
+        return getRepository(EM_Schedule)
+        .createQueryBuilder()
+        .select([
+            "id",
+            "notice",
+            "startDate",
+            "endDate",
+            "fireStationId",
+            "car_num"
+        ])
+        .where("DATE(startDate) = :date", { date: date })
+        .execute();
+    }
+
     //다대다로 설정된 스케쥴 추가
     async addSchedule(bd: any, bodyData: manageScheduleDto) {
         const em_schedule = new EM_Schedule();
