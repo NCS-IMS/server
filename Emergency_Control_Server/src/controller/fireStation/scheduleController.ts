@@ -263,15 +263,17 @@ async function modifyFireStationIdEmMan(req: Request, res: Response) {
 }
 
 async function findLogAll(req: Request, res: Response) {
-    const inter: number | any = req.query.pageInterval;
-    const pnum: number | any = req.query.pageNum;
+    let inter: number | any = req.query.pageInterval;
+    let pnum: number | any = req.query.pageNum;
     const ski = (inter * pnum) -1;
     
     let flag: number | any = Number(req.query.flag);
 
     try{
         if(inter <= 0 || pnum <= 0) {
-            throw("올바르지 않은 값이 입력되었습니다.")
+            // throw("올바르지 않은 값이 입력되었습니다.")
+            inter = 0;
+            pnum = 0;
         }
         await select_schedule_all(inter, ski, flag)
         .then(
